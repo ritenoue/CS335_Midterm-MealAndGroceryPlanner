@@ -19,7 +19,6 @@ public class MealMate {
 		
 		Boolean s = true;
 		for(int i = 1; i < response.length; i++) {
-			System.out.println(i);
 			//if-else to take the users to each action.
 			response[i] = r.nextLine();
 			if (response[i].equals("0")) {
@@ -199,6 +198,11 @@ public class MealMate {
 	public static void makeGroceryList(ArrayList<Recipe> recipes) {
 		System.out.println("Then your grocery list will be created by comparing your pantry and the ingredients of the recipe.");
 		System.out.println("Make sure your pantry is up to date.");
+		
+		System.out.println("First, enter a name for your grocery list.");
+		Scanner n = new Scanner(System.in);
+		String title = n.nextLine();
+		
 		System.out.println("These are your available recipes.");
 		
 		//print available recipes
@@ -238,10 +242,10 @@ public class MealMate {
 		}
 		
 		//compare
-		compareRecipeGrocery(recipes, pantry, toCompare);
+		compareRecipeGrocery(recipes, pantry, toCompare, title);
 	}
 	
-	public static void compareRecipeGrocery(ArrayList<Recipe> recipes, ArrayList<String> pantry, ArrayList<String> toCompare) {
+	public static void compareRecipeGrocery(ArrayList<Recipe> recipes, ArrayList<String> pantry, ArrayList<String> toCompare, String title) {
 		//System.out.println(recipes.get(0).getName());
 		//System.out.println(pantry);
 		//System.out.println(toCompare);
@@ -283,7 +287,7 @@ public class MealMate {
 		}
 		
 		//send to class constructor
-		GroceryList gList = new GroceryList("Test Grocery List", groceryItems);
+		GroceryList gList = new GroceryList(title, groceryItems);
 		System.out.println(gList.getName());
 		System.out.println(gList.getIngredients());
 		
