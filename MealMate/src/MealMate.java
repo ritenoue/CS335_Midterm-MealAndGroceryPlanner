@@ -320,7 +320,7 @@ public class MealMate {
 				else {
 					String line = inFile.nextLine();
 					line = line.substring(1, line.length( ) -1); //remove one set of brackets.
-					ArrayList<String> ingredients = new ArrayList<String>(Arrays.asList(line.split(",")));
+					ArrayList<String> ingredients = new ArrayList<String>(Arrays.asList(line.split(", ")));
 					items.add(ingredients);
 				}
 				i++;
@@ -338,17 +338,16 @@ public class MealMate {
 			
 			//enter condition if user wants to remove items.
 			if (remove == true) {
-				removeGroceryList(names, items);
+				removeGroceryList(gLists);
 			}
 		} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}	
 	}
-	
-	public static void removeGroceryList(ArrayList<String> n, ArrayList<ArrayList<String>> it) {
-		ArrayList<String> names  = n;
-		ArrayList<ArrayList<String>> ingredients = it;
+	//send in gLists
+	public static void removeGroceryList(ArrayList<GroceryList> gl) {
+		ArrayList<GroceryList> gList = gl;
 		
 		//print grocery lists
 		System.out.println("Type which grocery list you would like to remove. You may only remove one at a time.");
@@ -370,10 +369,9 @@ public class MealMate {
 		try {
 			//find and remove
 			p = new FileWriter("groceryList", true);
-			for (int j = 0; j < names.size(); j++) {
-				if (item.equals(names.get(j))) {
-					names.remove(j);
-					ingredients.remove(j);
+			for (int j = 0; j < gList.size(); j++) {
+				if (item.equals(gList.get(j).getName())) {
+					gList.remove(j);
 				}
 				else {
 					continue;
@@ -381,12 +379,10 @@ public class MealMate {
 			}
 			
 			//write to file
-			for (int l = 0; l < names.size(); l++) {
-				p.write(names.get(l) + "\r\n");
-				p.write(ingredients.get(l) + "\r\n");
+			for (int l = 0; l < gList.size(); l++) {
+				saveGroceryList(gList.get(l));
 			}
 			p.close();
-			//i.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
