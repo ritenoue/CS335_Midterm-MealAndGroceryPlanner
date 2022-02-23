@@ -1,3 +1,4 @@
+package MealMate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -117,41 +118,49 @@ public class MealMate {
 		
 		//use scanner to get user to input the item to be removed.
 		System.out.println("Type which pantry item you would like to remove. You may only remove one at a time.");
-		Scanner i = new Scanner(System.in);
-		String item = i.nextLine();
-		
+		Boolean exit = false;
+		while (exit == false) {
+			Scanner i = new Scanner(System.in);
+			String item = i.nextLine();
+			if (item.equals("EXIT")) {
+				exit = true;
+				continue;
+			} 
+			else {
 		//empty groceryList file. This has to happen because the file will be shorter than before.
-		FileWriter m;
-		try {
-			m = new FileWriter("pantry");
-			m.write("");
-			m.close();
-		} catch (IOException e1) {
+				FileWriter m;
+				try {
+					m = new FileWriter("pantry");
+					m.write("");
+					m.close();
+				} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+					e1.printStackTrace();
+				}
 				
-		FileWriter p;
-		try {
+				FileWriter p;
+				try {
 			//find and remove. Using the ArrayList sent in from viewPantry()
-			p = new FileWriter("pantry", true);
-			for (int j = 0; j < pItems.size(); j++) {
-				if (item.equals(pItems.get(j))) {
-					pItems.remove(j);
-				}
-				else {
-					continue;
-				}
-			}
+					p = new FileWriter("pantry", true);
+					for (int j = 0; j < pItems.size(); j++) {
+						if (item.equals(pItems.get(j))) {
+							pItems.remove(j);
+						}
+						else {
+							continue;
+						}
+					}
 					
 			//write to file
-			for (int l = 0; l < pItems.size(); l++) {
-				p.write(pItems.get(l) + "\r\n");
-			}
-			p.close();
-		} catch (IOException e) {
+					for (int l = 0; l < pItems.size(); l++) {
+						p.write(pItems.get(l) + "\r\n");
+					}
+					p.close();
+				} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
