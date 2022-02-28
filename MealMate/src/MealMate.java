@@ -117,7 +117,7 @@ public class MealMate {
 		//print grocery lists in viewPantry
 		
 		//use scanner to get user to input the item to be removed.
-		System.out.println("Type which pantry item you would like to remove. You may only remove one at a time.");
+		System.out.println("Type which pantry item you would like to remove and press ENTER or type EXIT to stop removing pantry items.");
 		Boolean exit = false;
 		while (exit == false) {
 			Scanner i = new Scanner(System.in);
@@ -359,9 +359,16 @@ public class MealMate {
 		ArrayList<GroceryList> gList = gl;
 		
 		//print grocery lists
-		System.out.println("Type which grocery list you would like to remove. You may only remove one at a time.");
-		Scanner i = new Scanner(System.in);
-		String item = i.nextLine();
+		System.out.println("Type which grocery list you would like to remove and press ENTER or type EXIT to stop.");
+		boolean exit = false;
+		while (exit == false) {
+			Scanner i = new Scanner(System.in);
+			String item = i.nextLine();
+			if (item.equals("EXIT")) {
+				exit = true;
+				continue;
+			}
+			else {
 		
 		//empty groceryList file. because the file will be shorter than before
 		FileWriter m;
@@ -371,11 +378,11 @@ public class MealMate {
 			m.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+						e1.printStackTrace();
+					}
 		
-		FileWriter p;
-		try {
+					FileWriter p;
+					try {
 			//find and remove
 			p = new FileWriter("MealMate/groceryList", true);
 			for (int j = 0; j < gList.size(); j++) {
@@ -386,15 +393,16 @@ public class MealMate {
 					continue;
 				}
 			}
-			
 			//write to file
-			for (int l = 0; l < gList.size(); l++) {
-				saveGroceryList(gList.get(l));
-			}
-			p.close();
-		} catch (IOException e) {
+						for (int l = 0; l < gList.size(); l++) {
+							saveGroceryList(gList.get(l));
+						}	
+						p.close();
+					} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+						e.printStackTrace();
+				}		
+			}
 		}
 	}
 	
