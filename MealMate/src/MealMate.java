@@ -1,4 +1,4 @@
-package MealMate;
+//package MealMate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -66,7 +66,7 @@ public class MealMate {
 		ArrayList<String> items = new ArrayList<String>();
 		try {
 			//read pantry file by using scanner
-			File p = new File("pantry");
+			File p = new File("MealMate/pantry");
 			Scanner inFile = new Scanner(p);
 			//check to make sure the file has text on the next line and print
 			while (inFile.hasNext()) {
@@ -94,7 +94,7 @@ public class MealMate {
 			Boolean exit = false;
 			Scanner i = new Scanner(System.in);
 			while (exit == false) {
-				FileWriter p = new FileWriter("pantry", true);
+				FileWriter p = new FileWriter("MealMate/pantry", true);
 				String item = i.nextLine();
 				//check to see if user wants to exit else write to file.
 				if (item.equals("EXIT")) {
@@ -130,7 +130,7 @@ public class MealMate {
 		//empty groceryList file. This has to happen because the file will be shorter than before.
 				FileWriter m;
 				try {
-					m = new FileWriter("pantry");
+					m = new FileWriter("MealMate/pantry");
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
@@ -141,7 +141,7 @@ public class MealMate {
 				FileWriter p;
 				try {
 			//find and remove. Using the ArrayList sent in from viewPantry()
-					p = new FileWriter("pantry", true);
+					p = new FileWriter("MealMate/pantry", true);
 					for (int j = 0; j < pItems.size(); j++) {
 						if (item.equals(pItems.get(j))) {
 							pItems.remove(j);
@@ -169,7 +169,7 @@ public class MealMate {
 		try {
 			System.out.println("These are your available recipes.");
 			//add to lists to prepare create objects
-			File p = new File("recipes");
+			File p = new File("MealMate/recipes");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -246,7 +246,7 @@ public class MealMate {
 		//get pantry and add to ArrayList
 		ArrayList<String> pantry = new ArrayList<String>();
 		try {
-			File p = new File("pantry");
+			File p = new File("MealMate/pantry");
 			Scanner inFile = new Scanner(p);
 			while (inFile.hasNext()) {
 				String line = inFile.nextLine();
@@ -315,7 +315,7 @@ public class MealMate {
 		try {
 			System.out.println("These are your available Grocery Lists.");
 			//add to lists to prepare create objects
-			File p = new File("groceryList");
+			File p = new File("MealMate/groceryList");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -366,7 +366,7 @@ public class MealMate {
 		//empty groceryList file. because the file will be shorter than before
 		FileWriter m;
 		try {
-			m = new FileWriter("groceryList");
+			m = new FileWriter("MealMate/groceryList");
 			m.write("");
 			m.close();
 		} catch (IOException e1) {
@@ -377,7 +377,7 @@ public class MealMate {
 		FileWriter p;
 		try {
 			//find and remove
-			p = new FileWriter("groceryList", true);
+			p = new FileWriter("MealMate/groceryList", true);
 			for (int j = 0; j < gList.size(); j++) {
 				if (item.equals(gList.get(j).getName())) {
 					gList.remove(j);
@@ -402,7 +402,7 @@ public class MealMate {
 		try {
 			String name = gl.getName();
 			ArrayList<String> ingredients = gl.getIngredients();
-			FileWriter p = new FileWriter("groceryList", true);
+			FileWriter p = new FileWriter("MealMate/groceryList", true);
 			p.write(name + "\r\n");
 			p.write(ingredients + "\r\n");
 			p.close();
