@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import javax.swing.*;
 
 public class MealMate {
 	
@@ -62,23 +63,37 @@ public class MealMate {
 	}
 	
 	public static void viewPantry(Boolean remove) {
+		JFrame f = new JFrame("View Pantry");
+		f.setBounds(0,0,1000,1000); 
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
 		//print all pantry items
 		ArrayList<String> items = new ArrayList<String>();
+		ArrayList<JLabel> labels = new ArrayList<JLabel>();
 		try {
 			//read pantry file by using scanner
 			File p = new File("MealMate/pantry");
 			Scanner inFile = new Scanner(p);
+			int yLoc = 50;
 			//check to make sure the file has text on the next line and print
 			while (inFile.hasNext()) {
 				String line = inFile.nextLine();
-				System.out.println(line);
+				JLabel l = new JLabel(line);
+				l.setBounds(50,yLoc, 250,20);
+		        labels.add(l);
+				//System.out.println(line);
 				items.add(line);
+				yLoc = yLoc + 20;
 			}
 			inFile.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        for (int i = 0; i < labels.size(); i++) {
+        	f.add(labels.get(i)); //print right on top of each other.
+        }
 		
 		//if the user wants to remove items enter condition else return to main.
 		if (remove == true) {
@@ -167,7 +182,9 @@ public class MealMate {
 	public static ArrayList<Recipe> viewRecipe(Boolean gList) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		try {
-			System.out.println("These are your available recipes.");
+			if (gList == false) {
+				System.out.println("These are your available recipes.");
+			}
 			//add to lists to prepare create objects
 			File p = new File("MealMate/recipes");
 			Scanner inFile = new Scanner(p);
