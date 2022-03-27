@@ -60,6 +60,7 @@ public class MealMate {
 		}
 		r.close(); // close the scanner. This is the only scanner that can be closed. otherwise it throws an error.
 		System.out.println("GoodBye");
+		System.exit(0); // Terminates program
 	}
 	
 	public static void viewPantry(Boolean remove) {
@@ -88,6 +89,7 @@ public class MealMate {
 			inFile.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
         
@@ -122,6 +124,7 @@ public class MealMate {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 	}
@@ -149,7 +152,8 @@ public class MealMate {
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
-			// TODO Auto-generated catch block
+					// TODO Auto-generated catch block
+					System.out.println(e);
 					e1.printStackTrace();
 				}
 				
@@ -172,7 +176,8 @@ public class MealMate {
 					}
 					p.close();
 				} catch (IOException e) {
-			// TODO Auto-generated catch block
+					// TODO Auto-generated catch block
+					System.out.println(e);
 					e.printStackTrace();
 				}
 			}
@@ -223,6 +228,7 @@ public class MealMate {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		return(recipes); //I don't think this does anything
@@ -272,6 +278,7 @@ public class MealMate {
 			inFile.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		
@@ -367,8 +374,9 @@ public class MealMate {
 				removeGroceryList(gLists);
 			}
 		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			e.printStackTrace();
 		}	
 	}
 	//send in gLists
@@ -395,11 +403,12 @@ public class MealMate {
 			m.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+			System.out.println(e);
+			e1.printStackTrace();
+		}
 		
-					FileWriter p;
-					try {
+		FileWriter p;
+		try {
 			//find and remove
 			p = new FileWriter("MealMate/groceryList", true);
 			for (int j = 0; j < gList.size(); j++) {
@@ -416,7 +425,8 @@ public class MealMate {
 						}	
 						p.close();
 					} catch (IOException e) {
-			// TODO Auto-generated catch block
+						// TODO Auto-generated catch block
+						System.out.println(e);
 						e.printStackTrace();
 				}		
 			}
@@ -433,6 +443,7 @@ public class MealMate {
 			p.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e);
 			e.printStackTrace();
 		}
 	}
