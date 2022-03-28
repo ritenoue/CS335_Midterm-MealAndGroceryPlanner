@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import javax.swing.*;
+import java.io.FileReader;
 
 public class MealMate {
 	
@@ -104,25 +105,48 @@ public class MealMate {
 	}
 	
 	public static void addToPantry() {
-		System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
-		
-		try {
-			//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
-			Boolean exit = false;
-			Scanner i = new Scanner(System.in);
-			while (exit == false) {
+		System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \n Type EXIT to exit.");
+		try{
+			Scanner j = new Scanner(System.in);
+			String answer = j.nextLine();
+			if (answer.equals("0")){
+				// Get name of file with new pantry items
+				System.out.println("Enter name of file to update current pantry -- DO NOT include the '.txt' at the end:");
+				String newFile = j.nextLine();
+				String newFileTrace = "MealMate/" + newFile;
+				// Read new file and write to old file
 				FileWriter p = new FileWriter("MealMate/pantry", true);
-				String item = i.nextLine();
-				//check to see if user wants to exit else write to file.
-				if (item.equals("EXIT")) {
-					exit = true;
+				FileReader fr = new FileReader(newFileTrace);
+				Scanner infile = new Scanner (fr);
+				String line = "";
+				// loop to copy each line of newFile to pantry.txt
+				while (infile.hasNextLine())
+				{
+					line = infile.nextLine();
+					p.write(line + "\r\n");
 				}
-				else {
-					p.write(item + "\r\n");
-					p.close();
+				p.close();
+				fr.close();
+				System.out.println(newFile + " was merged with current pantry file.");
+			}else if(answer.equals("1")){
+				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
+				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
+				Boolean exit = false;
+				Scanner i = new Scanner(System.in);
+				while (exit == false) {
+					FileWriter p = new FileWriter("MealMate/pantry", true);
+					String item = i.nextLine();
+					//check to see if user wants to exit else write to file.
+					if (item.equals("EXIT") || item.equals("exit")) {
+						exit = true;
+					}
+					else {
+						p.write(item + "\r\n");
+						p.close();
+					}
 				}
 			}
-		} catch (IOException e) {
+		} catch(IOException e){
 			// TODO Auto-generated catch block
 			System.out.println(e);
 			e.printStackTrace();
