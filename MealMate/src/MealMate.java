@@ -65,7 +65,8 @@ public class MealMate {
 	
 	public static void viewPantry(Boolean remove) {
 		JFrame f = new JFrame("View Pantry");
-		f.setBounds(0,0,1000,1000); 
+		f.setBounds(1000,1000,1000,1000);
+		f.getContentPane().setLayout(null);
 		f.setLocationRelativeTo(null);
         f.setVisible(true);
 		//print all pantry items
@@ -94,7 +95,7 @@ public class MealMate {
 		}
         
         for (int i = 0; i < labels.size(); i++) {
-        	f.add(labels.get(i)); //print right on top of each other.
+        	f.add(labels.get(i));
         }
 		
 		//if the user wants to remove items enter condition else return to main.
@@ -153,7 +154,7 @@ public class MealMate {
 					m.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println(e);
+					System.out.println(e1);
 					e1.printStackTrace();
 				}
 				
@@ -185,10 +186,18 @@ public class MealMate {
 	}
 	
 	public static ArrayList<Recipe> viewRecipe(Boolean gList) {
+		JFrame f = new JFrame("View Recipes");
+		f.setBounds(1000,1000,1000,1000); 
+		f.getContentPane().setLayout(null);
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		ArrayList<JLabel> labels = new ArrayList<JLabel>();
 		try {
 			if (gList == false) {
-				System.out.println("These are your available recipes.");
+				JLabel l = new JLabel("These are your available recipes.");
+				l.setBounds(50,20, 250,20);
+		        f.add(l);
 			}
 			//add to lists to prepare create objects
 			File p = new File("MealMate/recipes");
@@ -213,15 +222,24 @@ public class MealMate {
 			
 			//make objects. print if not making a grocery list and call makeGroceryList if true.
 			if (gList == false) {
+				int yLoc = 200;
 				for (int j = 0; j < names.size(); j++) {
 					Recipe r = new Recipe(names.get(j), items.get(j));
 					recipes.add(r);
-					System.out.println(r.getName());
+					JLabel li = new JLabel(r.getName());
+					li.setBounds(75,yLoc, 250,20);
+			        labels.add(li);
+					yLoc = yLoc + 20;
+					//System.out.println(r.getName());//convert to JLabels
 				}
+				
+				for (int l = 0; l < labels.size(); l++) {
+		        	f.add(labels.get(l));
+		        }
 			}
 			else {
-				for (int j = 0; j < names.size(); j++) {
-					Recipe r = new Recipe(names.get(j), items.get(j));
+				for (int k = 0; k < names.size(); k++) {
+					Recipe r = new Recipe(names.get(k), items.get(k));
 					recipes.add(r);
 				}
 				makeGroceryList(recipes);
@@ -335,9 +353,20 @@ public class MealMate {
 	}
 	
 	public static void viewGroceryList(Boolean remove) {
+		JFrame f = new JFrame("View Grocery Lists");
+		f.setBounds(1000,1000,1000,1000); 
+		f.getContentPane().setLayout(null);
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        
+        ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
+        ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
+        
 		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
 		try {
-			System.out.println("These are your available Grocery Lists.");
+			JLabel l = new JLabel("These are your available Grocery Lists.");
+			l.setBounds(50,20, 250,20);
+	        f.add(l);
 			//add to lists to prepare create objects
 			File p = new File("MealMate/groceryList");
 			Scanner inFile = new Scanner(p);
@@ -360,14 +389,31 @@ public class MealMate {
 			}
 			inFile.close();
 			//create grocery list object and add them to an ArrayList and print.
+			int yLocTitle = 50;
 			for (int j = 0; j < names.size(); j++) {
 				GroceryList r = new GroceryList(names.get(j), items.get(j));
 				gLists.add(r);
-				System.out.println(r.getName());
-				for (int l = 0; l < r.getIngredients().size(); l++) {
-					System.out.println("  " + r.getIngredients().get(l));
-				}
+				//System.out.println(r.getName()); //convert to JLabels
+				JLabel li = new JLabel(r.getName());
+				li.setBounds(75,yLocTitle, 250,20);
+		        labelsTitle.add(li);
+		        int yLocLabs = yLocTitle + 20;
+				yLocTitle = yLocTitle + 100;
+				for (int k = 0; k < r.getIngredients().size(); k++) {
+					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
+					JLabel ll = new JLabel(r.getIngredients().get(k));
+					ll.setBounds(100,yLocLabs, 250,20);
+			        labelsIngredient.add(ll);
+					yLocLabs = yLocLabs + 20;
+				} 
 			}
+			
+			for (int k = 0; k < labelsTitle.size(); k++) {
+	        	f.add(labelsTitle.get(k));
+	        	for (int r = 0; r < labelsIngredient.size(); r++) {
+	        		f.add(labelsIngredient.get(r));
+	        	}
+	        }
 			
 			//enter condition if user wants to remove items.
 			if (remove == true) {
@@ -403,7 +449,7 @@ public class MealMate {
 			m.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			System.out.println(e1);
 			e1.printStackTrace();
 		}
 		

@@ -1,4 +1,4 @@
-package MealMate;
+//package MealMate;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
