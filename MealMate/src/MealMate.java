@@ -123,6 +123,7 @@ public class MealMate {
 				while (pantryScan.hasNextLine()){
 					line = pantryScan.nextLine();
 					line = line.toLowerCase();
+					line = line.replaceAll("[\\d]", ""); // remove any numeric symbols
 					pantryItems.add(line);
 				}
 				pantryScan.close();
