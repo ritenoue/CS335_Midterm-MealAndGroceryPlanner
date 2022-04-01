@@ -89,9 +89,7 @@ public class MealMate {
 			}
 			inFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
         
         for (int i = 0; i < labels.size(); i++) {
@@ -194,9 +192,7 @@ public class MealMate {
 				}
 			}
 		} catch(IOException e){
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 	}
 	
@@ -223,9 +219,7 @@ public class MealMate {
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					System.out.println(e);
-					e1.printStackTrace();
+					System.out.println(e); // prints error
 				}
 				
 				FileWriter p;
@@ -247,9 +241,7 @@ public class MealMate {
 					}
 					p.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.out.println(e);
-					e.printStackTrace();
+					System.out.println(e); // prints error
 				}
 			}
 		}
@@ -298,9 +290,7 @@ public class MealMate {
 				makeGroceryList(recipes);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 		return(recipes); //I don't think this does anything
 	}
@@ -348,9 +338,7 @@ public class MealMate {
 			}
 			inFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 		
 		//compare. Send all the recipes, pantry items, selected recipes, and gList tile.
@@ -445,9 +433,7 @@ public class MealMate {
 				removeGroceryList(gLists);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}	
 	}
 	//send in gLists
@@ -473,9 +459,7 @@ public class MealMate {
 			m.write("");
 			m.close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e1.printStackTrace();
+			System.out.println(e); // prints error
 		}
 		
 		FileWriter p;
@@ -496,9 +480,7 @@ public class MealMate {
 						}	
 						p.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println(e);
-						e.printStackTrace();
+						System.out.println(e); // prints error
 				}		
 			}
 		}
@@ -513,9 +495,7 @@ public class MealMate {
 			p.write(ingredients + "\r\n");
 			p.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 	}
 
