@@ -66,18 +66,14 @@ public class MealMate {
 	
 	public static void viewPantry(Boolean remove) {
 		JFrame f = new JFrame("View Pantry");
-		f.setBounds(1000,1000,1000,1000);
-		f.getContentPane().setLayout(null);
-		f.setLocationRelativeTo(null);
-        f.setVisible(true);
 		//print all pantry items
 		ArrayList<String> items = new ArrayList<String>();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
+		int yLoc = 50;
 		try {
 			//read pantry file by using scanner
 			File p = new File("MealMate/pantry");
 			Scanner inFile = new Scanner(p);
-			int yLoc = 50;
 			//check to make sure the file has text on the next line and print
 			while (inFile.hasNext()) {
 				String line = inFile.nextLine();
@@ -98,8 +94,34 @@ public class MealMate {
         for (int i = 0; i < labels.size(); i++) {
         	f.add(labels.get(i));
         }
+        
+        yLoc = yLoc + 30;
+        JLabel li = new JLabel("Type what words?");
+        li.setBounds(50, yLoc, 250, 20);
+        f.add(li);
+        
+        //textfield
+        yLoc = yLoc + 20;
+        JTextField t = new JTextField(100);
+        t.setBounds(50, yLoc, 400, 20);
+        f.add(t);
+        
+        //buttons
+        JButton bAdd = new JButton("Add To Pantry");
+        JButton bRemove = new JButton("Remove From Pantry");
+        bAdd.setBounds(50, yLoc+20, 200, 20);
+        bRemove.setBounds(300, yLoc+20, 200, 20);
+        f.add(bAdd);
+        f.add(bRemove);
 		
+        
+        f.setBounds(1000,1000,1000,1000);
+		f.getContentPane().setLayout(null);
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        
 		//if the user wants to remove items enter condition else return to main.
+        //call from the buttons
 		if (remove == true) {
 			removeFromPantry(items);
 		}
@@ -129,7 +151,8 @@ public class MealMate {
 				p.close();
 				fr.close();
 				System.out.println(newFile + " was merged with current pantry file.");
-			}else if(answer.equals("1")){
+			}
+			else if(answer.equals("1")){ //called from the add button
 				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
 				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
 				Boolean exit = false;
@@ -146,7 +169,7 @@ public class MealMate {
 						p.close();
 					}
 				}
-			}
+			} //end else if
 		} catch(IOException e){
 			// TODO Auto-generated catch block
 			System.out.println(e);
@@ -160,7 +183,7 @@ public class MealMate {
 		//print grocery lists in viewPantry
 		
 		//use scanner to get user to input the item to be removed.
-		System.out.println("Type which pantry item you would like to remove and press ENTER or type EXIT to stop removing pantry items.");
+		//System.out.println("Type which pantry item you would like to remove and press ENTER or type EXIT to stop removing pantry items.");
 		Boolean exit = false;
 		while (exit == false) {
 			Scanner i = new Scanner(System.in);
@@ -169,8 +192,8 @@ public class MealMate {
 				exit = true;
 				continue;
 			} 
-			else {
-		//empty groceryList file. This has to happen because the file will be shorter than before.
+			else { //call from the remove button.
+				//empty groceryList file. This has to happen because the file will be shorter than before.
 				FileWriter m;
 				try {
 					m = new FileWriter("MealMate/pantry");
@@ -184,7 +207,7 @@ public class MealMate {
 				
 				FileWriter p;
 				try {
-			//find and remove. Using the ArrayList sent in from viewPantry()
+					//find and remove. Using the ArrayList sent in from viewPantry()
 					p = new FileWriter("MealMate/pantry", true);
 					for (int j = 0; j < pItems.size(); j++) {
 						if (item.equals(pItems.get(j))) {
@@ -205,7 +228,7 @@ public class MealMate {
 					System.out.println(e);
 					e.printStackTrace();
 				}
-			}
+			} //end else
 		}
 	}
 	
