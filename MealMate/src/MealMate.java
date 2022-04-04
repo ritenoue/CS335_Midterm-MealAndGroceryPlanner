@@ -12,7 +12,7 @@ public class MealMate {
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome to Meal Mate!\nYour grocery helper!\n");
-		System.out.println("0: Add pantry items\n1: View pantry items\n2: Remove pantry items");
+		System.out.println("1: View pantry items\n");
 		System.out.println("3: View recipes");
 		System.out.println("4: Create grocery list\n5: View grocery lists\n6: Remove grocery list\n");
 		System.out.println("Type the number of the action you would like to take");
@@ -130,7 +130,7 @@ public class MealMate {
 		try{
 			Scanner j = new Scanner(System.in);
 			String answer = j.nextLine();
-			if (answer.equals("0")){
+			if (answer.equals("0")){ //add with file
 				// Get name of file with new pantry items
 				System.out.println("Enter name of file to update current pantry -- DO NOT include the '.txt' at the end:");
 				String newFile = j.nextLine();
@@ -195,13 +195,8 @@ public class MealMate {
 				}
 				p.close();
 				System.out.println(newFile + " was merged with current pantry file.");
-<<<<<<< HEAD
-			}
+			} //end if
 			else if(answer.equals("1")){ //called from the add button
-=======
-				
-			}else if(answer.equals("1")){
->>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
 				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
 				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
 				Boolean exit = false;
@@ -227,8 +222,6 @@ public class MealMate {
 	public static void removeFromPantry(ArrayList<String> in) {
 		ArrayList<String> pItems = in;
 		
-		//print grocery lists in viewPantry
-		
 		//use scanner to get user to input the item to be removed.
 		//System.out.println("Type which pantry item you would like to remove and press ENTER or type EXIT to stop removing pantry items.");
 		Boolean exit = false;
@@ -240,20 +233,15 @@ public class MealMate {
 				continue;
 			} 
 			else { //call from the remove button.
-				//empty groceryList file. This has to happen because the file will be shorter than before.
+				//empty pantry file. This has to happen because the file will be shorter than before.
 				FileWriter m;
 				try {
 					m = new FileWriter("MealMate/pantry");
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
-<<<<<<< HEAD
-					// TODO Auto-generated catch block
-					System.out.println(e1);
-					e1.printStackTrace();
-=======
-					System.out.println(e); // prints error
->>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
+
+					System.out.println(e1); // prints error
 				}
 				
 				FileWriter p;
@@ -281,12 +269,8 @@ public class MealMate {
 		}
 	}
 	
-	public static ArrayList<Recipe> viewRecipe(Boolean gList) {
+	public static void viewRecipe(Boolean gList) {
 		JFrame f = new JFrame("View Recipes");
-		f.setBounds(1000,1000,1000,1000); 
-		f.getContentPane().setLayout(null);
-		f.setLocationRelativeTo(null);
-        f.setVisible(true);
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
 		try {
@@ -326,7 +310,6 @@ public class MealMate {
 					li.setBounds(75,yLoc, 250,20);
 			        labels.add(li);
 					yLoc = yLoc + 20;
-					//System.out.println(r.getName());//convert to JLabels
 				}
 				
 				for (int l = 0; l < labels.size(); l++) {
@@ -343,7 +326,83 @@ public class MealMate {
 		} catch (IOException e) {
 			System.out.println(e); // prints error
 		}
-		return(recipes); //I don't think this does anything
+		f.setBounds(1000,1000,1000,1000); 
+		f.getContentPane().setLayout(null);
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
+	}
+
+	public static void viewGroceryList(Boolean remove) {
+		JFrame f = new JFrame("View Grocery Lists");
+        
+        ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
+        ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
+        
+		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
+		try {
+			JLabel l = new JLabel("These are your available Grocery Lists.");
+			l.setBounds(50,20, 250,20);
+	        f.add(l);
+			//add to lists to prepare create objects
+			File p = new File("MealMate/groceryList");
+			Scanner inFile = new Scanner(p);
+			ArrayList<String> names = new ArrayList<String>();
+			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
+			int i = 0;
+			while (inFile.hasNext()) {
+				//Even lines are the titles and odd lines are the grocery items
+				if (i % 2 == 0) {
+					String line = inFile.nextLine();
+					names.add(line);
+				}
+				else {
+					String line = inFile.nextLine();
+					line = line.substring(1, line.length( ) -1); //remove one set of brackets.
+					ArrayList<String> ingredients = new ArrayList<String>(Arrays.asList(line.split(", ")));
+					items.add(ingredients);
+				}
+				i++;
+			}
+			inFile.close();
+			//create grocery list object and add them to an ArrayList and print.
+			int yLocTitle = 50;
+			for (int j = 0; j < names.size(); j++) {
+				GroceryList r = new GroceryList(names.get(j), items.get(j));
+				gLists.add(r);
+				//System.out.println(r.getName()); //convert to JLabels
+				JLabel li = new JLabel(r.getName());
+				li.setBounds(75,yLocTitle, 250,20);
+		        labelsTitle.add(li);
+		        int yLocLabs = yLocTitle + 20;
+				yLocTitle = yLocTitle + 100;
+				for (int k = 0; k < r.getIngredients().size(); k++) {
+					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
+					JLabel ll = new JLabel(r.getIngredients().get(k));
+					ll.setBounds(100,yLocLabs, 250,20);
+			        labelsIngredient.add(ll);
+					yLocLabs = yLocLabs + 20;
+				} 
+			}
+			
+			for (int k = 0; k < labelsTitle.size(); k++) {
+	        	f.add(labelsTitle.get(k));
+	        	for (int r = 0; r < labelsIngredient.size(); r++) {
+	        		f.add(labelsIngredient.get(r));
+	        	}
+	        }
+			
+			//enter condition if user wants to remove items.
+			if (remove == true) {
+				removeGroceryList(gLists);
+			}
+		} catch (IOException e) {
+			System.out.println(e); // prints error
+		}	
+		
+		f.setBounds(1000,1000,1000,1000); 
+		f.getContentPane().setLayout(null);
+		f.setLocationRelativeTo(null);
+        f.setVisible(true);
 	}
 	
 	public static void makeGroceryList(ArrayList<Recipe> recipes) {
@@ -443,78 +502,7 @@ public class MealMate {
 		//save to text file
 		saveGroceryList(gList);
 	}
-	
-	public static void viewGroceryList(Boolean remove) {
-		JFrame f = new JFrame("View Grocery Lists");
-		f.setBounds(1000,1000,1000,1000); 
-		f.getContentPane().setLayout(null);
-		f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        
-        ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
-        ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
-        
-		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
-		try {
-			JLabel l = new JLabel("These are your available Grocery Lists.");
-			l.setBounds(50,20, 250,20);
-	        f.add(l);
-			//add to lists to prepare create objects
-			File p = new File("MealMate/groceryList");
-			Scanner inFile = new Scanner(p);
-			ArrayList<String> names = new ArrayList<String>();
-			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
-			int i = 0;
-			while (inFile.hasNext()) {
-				//Even lines are the titles and odd lines are the grocery items
-				if (i % 2 == 0) {
-					String line = inFile.nextLine();
-					names.add(line);
-				}
-				else {
-					String line = inFile.nextLine();
-					line = line.substring(1, line.length( ) -1); //remove one set of brackets.
-					ArrayList<String> ingredients = new ArrayList<String>(Arrays.asList(line.split(", ")));
-					items.add(ingredients);
-				}
-				i++;
-			}
-			inFile.close();
-			//create grocery list object and add them to an ArrayList and print.
-			int yLocTitle = 50;
-			for (int j = 0; j < names.size(); j++) {
-				GroceryList r = new GroceryList(names.get(j), items.get(j));
-				gLists.add(r);
-				//System.out.println(r.getName()); //convert to JLabels
-				JLabel li = new JLabel(r.getName());
-				li.setBounds(75,yLocTitle, 250,20);
-		        labelsTitle.add(li);
-		        int yLocLabs = yLocTitle + 20;
-				yLocTitle = yLocTitle + 100;
-				for (int k = 0; k < r.getIngredients().size(); k++) {
-					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
-					JLabel ll = new JLabel(r.getIngredients().get(k));
-					ll.setBounds(100,yLocLabs, 250,20);
-			        labelsIngredient.add(ll);
-					yLocLabs = yLocLabs + 20;
-				} 
-			}
-			
-			for (int k = 0; k < labelsTitle.size(); k++) {
-	        	f.add(labelsTitle.get(k));
-	        	for (int r = 0; r < labelsIngredient.size(); r++) {
-	        		f.add(labelsIngredient.get(r));
-	        	}
-	        }
-			
-			//enter condition if user wants to remove items.
-			if (remove == true) {
-				removeGroceryList(gLists);
-			}
-		} catch (IOException e) {
-			System.out.println(e); // prints error
-		}	
-	}
+
 	//send in gLists
 	public static void removeGroceryList(ArrayList<GroceryList> gl) {
 		ArrayList<GroceryList> gList = gl;
@@ -538,13 +526,7 @@ public class MealMate {
 			m.write("");
 			m.close();
 		} catch (IOException e1) {
-<<<<<<< HEAD
-			// TODO Auto-generated catch block
-			System.out.println(e1);
-			e1.printStackTrace();
-=======
-			System.out.println(e); // prints error
->>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
+			System.out.println(e1); // prints error
 		}
 		
 		FileWriter p;
