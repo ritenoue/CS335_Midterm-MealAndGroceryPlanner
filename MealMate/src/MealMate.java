@@ -86,9 +86,7 @@ public class MealMate {
 			}
 			inFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
         
         for (int i = 0; i < labels.size(); i++) {
@@ -128,7 +126,7 @@ public class MealMate {
 	}
 	
 	public static void addToPantry() {
-		System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \n Type EXIT to exit.");
+		System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \nType EXIT to exit.");
 		try{
 			Scanner j = new Scanner(System.in);
 			String answer = j.nextLine();
@@ -137,22 +135,73 @@ public class MealMate {
 				System.out.println("Enter name of file to update current pantry -- DO NOT include the '.txt' at the end:");
 				String newFile = j.nextLine();
 				String newFileTrace = "MealMate/" + newFile;
-				// Read new file and write to old file
-				FileWriter p = new FileWriter("MealMate/pantry", true);
+				
+				// Make a list of all current pantry items to check for possible repeats
+				String line = "";
+				FileReader readPantry = new FileReader ("MealMate/pantry");
+				Scanner pantryScan = new Scanner (readPantry);
+				ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
+				while (pantryScan.hasNextLine()){
+					line = pantryScan.nextLine();
+					line = line.toLowerCase();
+					line = line.replaceAll("[\\d]", ""); // remove any numeric symbols
+					pantryItems.add(line);
+				}
+				pantryScan.close();
+
+				// Read new file and get all items
 				FileReader fr = new FileReader(newFileTrace);
 				Scanner infile = new Scanner (fr);
-				String line = "";
-				// loop to copy each line of newFile to pantry.txt
-				while (infile.hasNextLine())
-				{
+
+				ArrayList<String> newPantryItems = new ArrayList<String>(); // get all the new pantry items
+				line = ""; // reset line value to use in following loop
+				String delimiters = ",\\s*|\\.\\s*"; // execptions to split string
+				
+				// loop to get all the items from the user input file
+				while (infile.hasNextLine()) {
 					line = infile.nextLine();
-					p.write(line + "\r\n");
+					if (line.isEmpty()){ // gets rid of empty lines
+						continue;
+					}
+					String[] lineSplit = line.split(delimiters, 0); // gets rid of any commas or puncuation
+					for(String newLine: lineSplit) {
+						line = newLine.toLowerCase();
+						newPantryItems.add(line);
+					}
+				}
+				fr.close();
+				infile.close();
+
+				FileWriter p = new FileWriter("MealMate/pantry", true);
+				int count = 0;
+				boolean isThere = false;
+				String currentOGPantry = "";
+
+				// check for repeats and only add new pantry items
+				for (int y=count; y<newPantryItems.size();y++){
+					String currentNewPantry = newPantryItems.get(y);
+					for(int z=0; z<pantryItems.size(); z++) {
+						currentOGPantry = pantryItems.get(z);
+						if(currentOGPantry.equals(currentNewPantry)){
+							isThere = true;
+							break;
+						}
+					}
+					if (isThere == false){
+						p.write(currentNewPantry + "\r\n");
+					}
+					count++;
+					isThere = false;
 				}
 				p.close();
-				fr.close();
 				System.out.println(newFile + " was merged with current pantry file.");
+<<<<<<< HEAD
 			}
 			else if(answer.equals("1")){ //called from the add button
+=======
+				
+			}else if(answer.equals("1")){
+>>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
 				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
 				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
 				Boolean exit = false;
@@ -171,9 +220,7 @@ public class MealMate {
 				}
 			} //end else if
 		} catch(IOException e){
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 	}
 	
@@ -200,9 +247,13 @@ public class MealMate {
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
+<<<<<<< HEAD
 					// TODO Auto-generated catch block
 					System.out.println(e1);
 					e1.printStackTrace();
+=======
+					System.out.println(e); // prints error
+>>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
 				}
 				
 				FileWriter p;
@@ -224,9 +275,7 @@ public class MealMate {
 					}
 					p.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.out.println(e);
-					e.printStackTrace();
+					System.out.println(e); // prints error
 				}
 			} //end else
 		}
@@ -292,9 +341,7 @@ public class MealMate {
 				makeGroceryList(recipes);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 		return(recipes); //I don't think this does anything
 	}
@@ -342,9 +389,7 @@ public class MealMate {
 			}
 			inFile.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 		
 		//compare. Send all the recipes, pantry items, selected recipes, and gList tile.
@@ -467,9 +512,7 @@ public class MealMate {
 				removeGroceryList(gLists);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}	
 	}
 	//send in gLists
@@ -495,9 +538,13 @@ public class MealMate {
 			m.write("");
 			m.close();
 		} catch (IOException e1) {
+<<<<<<< HEAD
 			// TODO Auto-generated catch block
 			System.out.println(e1);
 			e1.printStackTrace();
+=======
+			System.out.println(e); // prints error
+>>>>>>> c65bd5868b314fc468f9277d0ef93f3ada2e7919
 		}
 		
 		FileWriter p;
@@ -518,9 +565,7 @@ public class MealMate {
 						}	
 						p.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println(e);
-						e.printStackTrace();
+						System.out.println(e); // prints error
 				}		
 			}
 		}
@@ -535,9 +580,7 @@ public class MealMate {
 			p.write(ingredients + "\r\n");
 			p.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-			e.printStackTrace();
+			System.out.println(e); // prints error
 		}
 	}
 
