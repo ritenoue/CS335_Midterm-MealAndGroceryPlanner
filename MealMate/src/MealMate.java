@@ -234,27 +234,19 @@ public class MealMate extends JFrame implements ActionListener {
 	}
 	
 	public static void addToPantry() {
-		//System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \nType EXIT to exit.");
-		try{
-				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
-				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
-				Boolean exit = false;
-				Scanner i = new Scanner(System.in);
-				while (exit == false) {
-					FileWriter p = new FileWriter("MealMate/pantry", true);
-					//FileWriter p = new FileWriter("pantry", true);
-					String item = i.nextLine();
-					//check to see if user wants to exit else write to file.
-					if (item.equals("EXIT") || item.equals("exit")) {
-						exit = true;
-					}
-					else {
-						p.write(item + "\r\n");
-						p.close();
-					}
-				}
-		} catch(IOException e){
-			System.out.println(e); // prints error
+		try {
+			FileWriter p = new FileWriter("MealMate/pantry", true);
+			String item = t.getText();
+		//check to see if user wants to exit else write to file.
+		
+			p.write(item + "\r\n");
+			p.close();
+			l.setText(t.getText());
+
+		// set the text of field to blank
+			t.setText(" ");
+		} catch (IOException e1) {
+			System.out.println(e1); // prints error
 		}
 	}
 	
@@ -638,21 +630,7 @@ public class MealMate extends JFrame implements ActionListener {
 		if ("Choose File".equals(e.getActionCommand())) {  
             MealMate.bulkAddToPantry();
         } if ("Add to Pantry".equals(e.getActionCommand())) {
-			try {
-				FileWriter p = new FileWriter("MealMate/pantry", true);
-				//FileWriter p = new FileWriter("pantry", true);
-				String item = t.getText();
-			//check to see if user wants to exit else write to file.
-			
-				p.write(item + "\r\n");
-				p.close();
-				l.setText(t.getText());
-
-			// set the text of field to blank
-				t.setText(" ");
-			} catch (IOException e1) {
-				System.out.println(e1); // prints error
-			}
+			MealMate.addToPantry();
 
 		} if ("Remove from Pantry".equals(e.getActionCommand())) {
 			ArrayList<String> items = new ArrayList<String>();
@@ -679,7 +657,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			MealMate.removeFromPantry(items, t.getText());
 			t.setText(" ");			
-		}
+		} 
     }
 } 
 
