@@ -228,26 +228,12 @@ public class MealMate {
 		}
 	}
 	
-	public static void removeFromPantry(ArrayList<String> in) {
+	public static void removeFromPantry(ArrayList<String> in, String item) {
 		ArrayList<String> pItems = in;
 		
-		//print grocery lists in viewPantry
-		
-		//use scanner to get user to input the item to be removed.
-		//System.out.println("Type which pantry item you would like to remove and press ENTER or type EXIT to stop removing pantry items.");
-		Boolean exit = false;
-		while (exit == false) {
-			Scanner i = new Scanner(System.in);
-			String item = i.nextLine();
-			if (item.equals("EXIT")) {
-				exit = true;
-				continue;
-			} 
-			else { //call from the remove button.
-				//empty groceryList file. This has to happen because the file will be shorter than before.
 				FileWriter m;
 				try {
-					m = new FileWriter("MealMate/pantry");
+					m = new FileWriter("pantry");
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
@@ -258,7 +244,7 @@ public class MealMate {
 				FileWriter p;
 				try {
 					//find and remove. Using the ArrayList sent in from viewPantry()
-					p = new FileWriter("MealMate/pantry", true);
+					p = new FileWriter("pantry", true);
 					for (int j = 0; j < pItems.size(); j++) {
 						if (item.equals(pItems.get(j))) {
 							pItems.remove(j);
@@ -277,8 +263,7 @@ public class MealMate {
 					System.out.println(e); // prints error
 				}
 			} //end else
-		}
-	}
+
 	
 	public static ArrayList<Recipe> viewRecipe(Boolean gList) {
 		JFrame f = new JFrame("View Recipes");
