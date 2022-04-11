@@ -233,7 +233,7 @@ public class MealMate {
 		
 				FileWriter m;
 				try {
-					m = new FileWriter("pantry");
+					m = new FileWriter("MealMate/pantry");
 					m.write("");
 					m.close();
 				} catch (IOException e1) {
