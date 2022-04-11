@@ -2,17 +2,21 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.AbstractButton;
 
 import java.io.FileReader;
 
-public class MealMate {
+public class MealMate extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
+		MealMate m = new MealMate();
 		System.out.println("Welcome to Meal Mate!\nYour grocery helper!\n");
 		System.out.println("0: Add pantry items\n1: View pantry items\n2: Remove pantry items");
 		System.out.println("3: View recipes");
@@ -34,11 +38,11 @@ public class MealMate {
 			}
 			else if (response[i].equals("1")) {
 				//go to view
-				viewPantry(false);
+				m.viewPantry(false);
 			}
 			else if (response[i].equals("2")) {
 				//go to remove
-				viewPantry(true);
+				m.viewPantry(true);
 			}
 			else if (response[i].equals("3")) {
 				//go to view
@@ -66,7 +70,7 @@ public class MealMate {
 		System.exit(0); // Terminates program
 	}
 	
-	public static void viewPantry(Boolean remove) {
+	public void viewPantry(Boolean remove) {
 		JFrame f = new JFrame("View Pantry");
 		//print all pantry items
 		ArrayList<String> items = new ArrayList<String>();
@@ -114,98 +118,108 @@ public class MealMate {
         bRemove.setBounds(300, yLoc, 200, 20);
         f.add(bAdd);
         f.add(bRemove);
-		
-        //wonky open buttons
-        //file upload
-        yLoc = yLoc+50;
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jfc.setBounds(50, yLoc, 900, 500);
-        f.add(jfc);
+        
+        yLoc = yLoc + 50;
+        JLabel lba = new JLabel("Or add via file upload.");
+        lba.setBounds(50, yLoc, 250, 20);
+        f.add(lba);
+        JButton bBulk = new JButton("Choose File");
+        //add action listener. get code from rachel
+        bBulk.setBounds(50, yLoc+20, 200, 20);
+        bBulk.setActionCommand("Choose File");
+        bBulk.setEnabled(true);
+        bBulk.addActionListener(this);
+        f.add(bBulk);
         
         f.setBounds(1000,1000,1000,1000);
 		f.getContentPane().setLayout(null);
 		f.setLocationRelativeTo(null);
         f.setVisible(true);
+	}
+	
+	public static void bulkAddToPantry() {
+		//file upload
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        int status = jfc.showOpenDialog(null);
         
-		//if the user wants to remove items enter condition else return to main.
-        //call from the buttons
-		if (remove == true) {
-			removeFromPantry(items);
-		}
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            jfc.setSelectedFile(selectedFile);
+            System.out.println(selectedFile.getParent());
+            System.out.println(selectedFile.getName());
+			try {
+			// Make a list of all current pantry items to check for possible repeats
+			String line = "";
+			FileReader readPantry = new FileReader ("MealMate/pantry");
+			Scanner pantryScan = new Scanner (readPantry);
+			ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
+			while (pantryScan.hasNextLine()){
+				line = pantryScan.nextLine();
+				line = line.toLowerCase();
+				line = line.replaceAll("[\\d]", ""); // remove any numeric symbols
+				pantryItems.add(line);
+			}
+			pantryScan.close();
+
+			// Read new file and get all items
+			FileReader fr = new FileReader(selectedFile.getPath());
+			Scanner infile = new Scanner (fr);
+
+			ArrayList<String> newPantryItems = new ArrayList<String>(); // get all the new pantry items
+			line = ""; // reset line value to use in following loop
+			String delimiters = ",\\s*|\\.\\s*"; // execptions to split string
+			
+			// loop to get all the items from the user input file
+			while (infile.hasNextLine()) {
+				line = infile.nextLine();
+				if (line.isEmpty()){ // gets rid of empty lines
+					continue;
+				}
+				String[] lineSplit = line.split(delimiters, 0); // gets rid of any commas or puncuation
+				for(String newLine: lineSplit) {
+					line = newLine.toLowerCase();
+					newPantryItems.add(line);
+				}
+			}
+			fr.close();
+			infile.close();
+
+			FileWriter p = new FileWriter("MealMate/pantry", true);
+			int count = 0;
+			boolean isThere = false;
+			String currentOGPantry = "";
+
+			// check for repeats and only add new pantry items
+			for (int y=count; y<newPantryItems.size();y++){
+				String currentNewPantry = newPantryItems.get(y);
+				for(int z=0; z<pantryItems.size(); z++) {
+					currentOGPantry = pantryItems.get(z);
+					if(currentOGPantry.equals(currentNewPantry)){
+						isThere = true;
+						break;
+					}
+				}
+				if (isThere == false){
+					p.write(currentNewPantry + "\r\n");
+				}
+				count++;
+				isThere = false;
+			}
+			p.close();
+			}
+			catch(IOException e){
+				System.out.println(e); // prints error
+			}
+			System.out.println(selectedFile.getName() + " was merged with current pantry file.");
+          } else if (status == JFileChooser.CANCEL_OPTION) {
+            System.out.println("canceled");
+          }
+        
 	}
 	
 	public static void addToPantry() {
-		System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \nType EXIT to exit.");
+		//System.out.println("0: Type '0' to update current pantry file with another .txt file \n1: Type '1' to add pantry items by typing one at a time to edit current pantry. \nType EXIT to exit.");
 		try{
-			Scanner j = new Scanner(System.in);
-			String answer = j.nextLine();
-			if (answer.equals("0")){
-				// Get name of file with new pantry items
-				System.out.println("Enter name of file to update current pantry -- DO NOT include the '.txt' at the end:");
-				String newFile = j.nextLine();
-				String newFileTrace = "MealMate/" + newFile;
-				
-				// Make a list of all current pantry items to check for possible repeats
-				String line = "";
-				FileReader readPantry = new FileReader ("MealMate/pantry");
-				Scanner pantryScan = new Scanner (readPantry);
-				ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
-				while (pantryScan.hasNextLine()){
-					line = pantryScan.nextLine();
-					line = line.toLowerCase();
-					line = line.replaceAll("[\\d]", ""); // remove any numeric symbols
-					pantryItems.add(line);
-				}
-				pantryScan.close();
-
-				// Read new file and get all items
-				FileReader fr = new FileReader(newFileTrace);
-				Scanner infile = new Scanner (fr);
-
-				ArrayList<String> newPantryItems = new ArrayList<String>(); // get all the new pantry items
-				line = ""; // reset line value to use in following loop
-				String delimiters = ",\\s*|\\.\\s*"; // execptions to split string
-				
-				// loop to get all the items from the user input file
-				while (infile.hasNextLine()) {
-					line = infile.nextLine();
-					if (line.isEmpty()){ // gets rid of empty lines
-						continue;
-					}
-					String[] lineSplit = line.split(delimiters, 0); // gets rid of any commas or puncuation
-					for(String newLine: lineSplit) {
-						line = newLine.toLowerCase();
-						newPantryItems.add(line);
-					}
-				}
-				fr.close();
-				infile.close();
-
-				FileWriter p = new FileWriter("MealMate/pantry", true);
-				int count = 0;
-				boolean isThere = false;
-				String currentOGPantry = "";
-
-				// check for repeats and only add new pantry items
-				for (int y=count; y<newPantryItems.size();y++){
-					String currentNewPantry = newPantryItems.get(y);
-					for(int z=0; z<pantryItems.size(); z++) {
-						currentOGPantry = pantryItems.get(z);
-						if(currentOGPantry.equals(currentNewPantry)){
-							isThere = true;
-							break;
-						}
-					}
-					if (isThere == false){
-						p.write(currentNewPantry + "\r\n");
-					}
-					count++;
-					isThere = false;
-				}
-				p.close();
-				System.out.println(newFile + " was merged with current pantry file.");
-			}
-			else if(answer.equals("1")){ //called from the add button
 				System.out.println("Type the name of the item you would like to add and press ENTER or type EXIT to stop adding pantry items.");
 				//read pantry file by using scanner. FileWriter must be set to true to append and not overwrite.
 				Boolean exit = false;
@@ -222,7 +236,6 @@ public class MealMate {
 						p.close();
 					}
 				}
-			} //end else if
 		} catch(IOException e){
 			System.out.println(e); // prints error
 		}
@@ -606,7 +619,19 @@ public class MealMate {
 			System.out.println(e); // prints error
 		}
 	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if ("Choose File".equals(e.getActionCommand())) {  
+            MealMate.bulkAddToPantry();
+        } 
+    }
+} 
 
-}
+
+
+
 
 
