@@ -23,7 +23,10 @@ public class MakeButton extends JPanel
                         implements ActionListener {
     protected JButton b1, b2, b3;
     
+    
+    
     public MakeButton() {
+    	
     	//ImageIcon leftButtonIcon = createImageIcon("images/right.gif");
         //ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
         //ImageIcon rightButtonIcon = createImageIcon("images/left.gif")
@@ -79,8 +82,10 @@ public class MakeButton extends JPanel
     
     public void actionPerformed(ActionEvent e) {
   ////****THS IS THE GOOD GOODS :))****///
+    	MealMate mealMate = new MealMate();
+
         if ("view pantry".equals(e.getActionCommand())) {  
-            MealMate.viewPantry(false);
+            mealMate.viewPantry(true);
         } 
         if ("view recipe".equals(e.getActionCommand())) {  
             MealMate.viewRecipe(false);
