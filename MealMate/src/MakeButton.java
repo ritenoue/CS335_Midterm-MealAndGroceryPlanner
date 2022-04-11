@@ -1,14 +1,17 @@
-//package MealMate;
+package MealMate;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
- 
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
  
 /* 
  * ButtonDemo.java requires the following files:
@@ -23,37 +26,49 @@ public class MakeButton extends JPanel
     public MakeButton() {
     	//ImageIcon leftButtonIcon = createImageIcon("images/right.gif");
         //ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
-        //ImageIcon rightButtonIcon = createImageIcon("images/left.gif");
- 
+        //ImageIcon rightButtonIcon = createImageIcon("images/left.gif")
+    	
         //b1 = new JButton("Disable middle button", leftButtonIcon);
         b1 = new JButton("View Pantry");
         b1.setVerticalTextPosition(AbstractButton.CENTER);
         b1.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
         b1.setMnemonic(KeyEvent.VK_D);
         b1.setActionCommand("view pantry");
- 
+        b1.setBackground(Color.decode("#CBF2CF"));
+        b1.setFont(new Font("Lato", Font.BOLD, 40));
+
         //b2 = new JButton("Middle button", middleButtonIcon);
         b2 = new JButton("View Recipes");
 
         b2.setVerticalTextPosition(AbstractButton.BOTTOM);
         b2.setHorizontalTextPosition(AbstractButton.CENTER);
         b2.setMnemonic(KeyEvent.VK_M);
+        b2.setActionCommand("view recipe");
+        b2.setBackground(Color.decode("#CBF2CF"));
+        b2.setFont(new Font("Lato", Font.BOLD, 40));
+
+
  
         //b3 = new JButton("Enable middle button", rightButtonIcon);
-        b3 = new JButton("Rachel is so Cool");
+        b3 = new JButton("View Grocery List");
 
         //Use the default text position of CENTER, TRAILING (RIGHT).
         b3.setMnemonic(KeyEvent.VK_E);
-        b3.setActionCommand("enable");
-        b3.setEnabled(false);
+        b3.setActionCommand("view grocery list");
+        b3.setEnabled(true);
+        b3.setBackground(Color.decode("#CBF2CF"));
+        b3.setFont(new Font("Lato", Font.BOLD, 40));
+
+
  
         //Listen for actions on buttons 1 and 3.
         b1.addActionListener(this);
+        b2.addActionListener(this);
         b3.addActionListener(this);
  
         b1.setToolTipText("Click this button to view pantry.");
-        b2.setToolTipText("This middle button does nothing when you click it.");
-        b3.setToolTipText("Click this button to enable the middle button.");
+        b2.setToolTipText("Click this button to view recipes.");
+        b3.setToolTipText("Click this button to view grocery lists.");
  
         //Add Components to this container, using the default FlowLayout.
         add(b1);
@@ -63,18 +78,19 @@ public class MakeButton extends JPanel
  
     
     public void actionPerformed(ActionEvent e) {
-        if ("disable".equals(e.getActionCommand())) {
-            b2.setEnabled(false);
-            b1.setEnabled(false);
-            b3.setEnabled(true);
   ////****THS IS THE GOOD GOODS :))****///
-        } if ("view pantry".equals(e.getActionCommand())) {
-           
+        if ("view pantry".equals(e.getActionCommand())) {  
             MealMate.viewPantry(false);
-        } else {
+        } 
+        if ("view recipe".equals(e.getActionCommand())) {  
+            MealMate.viewRecipe(false);
+        } 
+        if ("view grocery list".equals(e.getActionCommand())) {  
+            MealMate.viewGroceryList(false);
+    	} else {
         	b2.setEnabled(true);
             b1.setEnabled(true);
-            b3.setEnabled(false);
+            b3.setEnabled(true);
         }
     }
  
@@ -93,9 +109,14 @@ public class MakeButton extends JPanel
     private static void createAndShowGUI() {
     	 
         //Create and set up the window.
-        JFrame frame = new JFrame("ButtonDemo");
+        JFrame frame = new JFrame("MealMate");
+        frame.setBounds(1000,1000,1000,1000); 
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        //how to close program when you click X on popup
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
+
         //Create and set up the content pane.
         MakeButton newContentPane = new MakeButton();
         newContentPane.setOpaque(true); //content panes must be opaque
@@ -118,4 +139,3 @@ public class MakeButton extends JPanel
 }
     
  
-    
