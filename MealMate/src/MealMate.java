@@ -107,6 +107,7 @@ public class MealMate extends JFrame implements ActionListener {
         
         yLoc = yLoc + 30;
         JLabel li = new JLabel("Type what words?");
+	li.setFont(new Font("Lato", Font.BOLD, 15));
         li.setBounds(50, yLoc, 250, 20);
         f.add(li);
         
@@ -142,6 +143,7 @@ public class MealMate extends JFrame implements ActionListener {
         yLoc = yLoc + 50;
         JLabel lba = new JLabel("Or add via file upload.");
         lba.setBounds(50, yLoc, 250, 20);
+	lba.setFont(new Font("Lato", Font.BOLD, 15));
         f.add(lba);
         JButton bBulk = new JButton("Choose File");
 	bBulk.setBackground(Color.decode("#CBF2CF"));
@@ -308,6 +310,7 @@ public class MealMate extends JFrame implements ActionListener {
 		try {
 			if (gList == false) {
 				JLabel l = new JLabel("These are your available recipes.");
+				l.setFont(new Font("Lato", Font.BOLD, 15));
 				l.setBounds(50,20, 250,20);
 		        f.add(l);
 			}
@@ -373,7 +376,8 @@ public class MealMate extends JFrame implements ActionListener {
 		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
 		try {
 			JLabel l = new JLabel("These are your available Grocery Lists.");
-			l.setBounds(50,20, 250,20);
+			l.setFont(new Font("Lato", Font.BOLD, 15));
+			l.setBounds(50,20, 500,20);
 	        f.add(l);
 			//add to lists to prepare create objects
 			File p = new File("MealMate/groceryList");
@@ -430,13 +434,14 @@ public class MealMate extends JFrame implements ActionListener {
 			JButton bAdd = new JButton("Make Grocery List");
 			bAdd.setBackground(Color.decode("#CBF2CF"));
         		bAdd.setFont(new Font("Lato", Font.BOLD, 15));
-			bAdd.setBounds(50, yLocLabs, 200, 20);
+			bAdd.setBounds(50, yLocLabs, 500, 20);
 			f.add(bAdd);
 			
 			//remove list
 			yLocLabs = yLocLabs+30;
 			JLabel lRemove = new JLabel("Type which list you want to delete.");
-			lRemove.setBounds(50, yLocLabs, 250, 20);
+			lRemove.setFont(new Font("Lato", Font.BOLD, 15)); //THIS
+			lRemove.setBounds(50, yLocLabs, 500, 20);
 			f.add(lRemove);
 			
 			yLocLabs = yLocLabs+20;
