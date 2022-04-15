@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 import java.io.FileReader;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MealMate extends JFrame implements ActionListener {
 	static JTextField t;
@@ -120,7 +122,11 @@ public class MealMate extends JFrame implements ActionListener {
         
         //buttons
         JButton bAdd = new JButton("Add To Pantry");
+	bAdd.setBackground(Color.decode("#CBF2CF"));
+        bAdd.setFont(new Font("Lato", Font.BOLD, 15));
         JButton bRemove = new JButton("Remove From Pantry");
+	bRemove.setBackground(Color.decode("#CBF2CF"));
+        bRemove.setFont(new Font("Lato", Font.BOLD, 15));
         yLoc = yLoc+20;
         bAdd.setBounds(50, yLoc, 200, 20);
         bRemove.setBounds(300, yLoc, 200, 20);
@@ -138,6 +144,8 @@ public class MealMate extends JFrame implements ActionListener {
         lba.setBounds(50, yLoc, 250, 20);
         f.add(lba);
         JButton bBulk = new JButton("Choose File");
+	bBulk.setBackground(Color.decode("#CBF2CF"));
+        bBulk.setFont(new Font("Lato", Font.BOLD, 15));
         //add action listener. get code from rachel
         bBulk.setBounds(50, yLoc+20, 200, 20);
         bBulk.setActionCommand("Choose File");
@@ -420,6 +428,8 @@ public class MealMate extends JFrame implements ActionListener {
 			//make list
 			yLocLabs = yLocLabs+50;
 			JButton bAdd = new JButton("Make Grocery List");
+			bAdd.setBackground(Color.decode("#CBF2CF"));
+        		bAdd.setFont(new Font("Lato", Font.BOLD, 15));
 			bAdd.setBounds(50, yLocLabs, 200, 20);
 			f.add(bAdd);
 			
@@ -436,6 +446,8 @@ public class MealMate extends JFrame implements ActionListener {
 			
 			yLocLabs = yLocLabs+20;
 			JButton bRemove = new JButton("Delete Grocery List");
+			bRemove.setBackground(Color.decode("#CBF2CF"));
+        		bRemove.setFont(new Font("Lato", Font.BOLD, 15));
 			bRemove.setBounds(50, yLocLabs, 400, 20);
 			f.add(bRemove);
 			
