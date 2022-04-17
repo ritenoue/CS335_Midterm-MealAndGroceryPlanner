@@ -77,6 +77,10 @@ public class MealMate extends JFrame implements ActionListener {
 	
 	public void viewPantry(Boolean remove) {
 		JFrame f = new JFrame("View Pantry");
+		JLabel lp = new JLabel("This is your current pantry.");
+		lp.setFont(new Font("Lato", Font.BOLD, 15));
+		lp.setBounds(50,20, 250,20);
+		f.add(lp);
 		//print all pantry items
 		ArrayList<String> items = new ArrayList<String>();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
@@ -91,7 +95,8 @@ public class MealMate extends JFrame implements ActionListener {
 				String line = inFile.nextLine();
 				JLabel l = new JLabel(line);
 				l.setBounds(50,yLoc, 250,20);
-		        labels.add(l);
+				l.setFont(new Font("Lato", Font.PLAIN, 13));
+		        	labels.add(l);
 				//System.out.println(line);
 				items.add(line);
 				yLoc = yLoc + 20;
@@ -344,7 +349,8 @@ public class MealMate extends JFrame implements ActionListener {
 					recipes.add(r);
 					JLabel li = new JLabel(r.getName());
 					li.setBounds(75,yLoc, 250,20);
-			        labels.add(li);
+					li.setFont(new Font("Lato", Font.PLAIN, 13));
+			        	labels.add(li);
 					yLoc = yLoc + 20;
 					//System.out.println(r.getName());//convert to JLabels
 				}
@@ -410,14 +416,16 @@ public class MealMate extends JFrame implements ActionListener {
 				//System.out.println(r.getName()); //convert to JLabels
 				JLabel li = new JLabel(r.getName());
 				li.setBounds(75,yLocTitle, 250,20);
-		        labelsTitle.add(li);
-		        yLocLabs = yLocTitle + 20;
+				li.setFont(new Font("Lato", Font.PLAIN, 13));
+		        	labelsTitle.add(li);
+		        	yLocLabs = yLocTitle + 20;
 				yLocTitle = yLocTitle + 100;
 				for (int k = 0; k < r.getIngredients().size(); k++) {
 					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
 					JLabel ll = new JLabel(r.getIngredients().get(k));
 					ll.setBounds(100,yLocLabs, 250,20);
-			        labelsIngredient.add(ll);
+					ll.setFont(new Font("Lato", Font.PLAIN, 13));
+			        	labelsIngredient.add(ll);
 					yLocLabs = yLocLabs + 20;
 				} 
 			}
