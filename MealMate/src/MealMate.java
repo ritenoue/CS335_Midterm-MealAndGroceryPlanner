@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 import java.io.FileReader;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MealMate extends JFrame implements ActionListener {
 	static JTextField t;
@@ -75,6 +77,10 @@ public class MealMate extends JFrame implements ActionListener {
 	
 	public void viewPantry(Boolean remove) {
 		JFrame fPantry = new JFrame("View Pantry");
+		JLabel lp = new JLabel("This is your current pantry.");
+		lp.setFont(new Font("Lato", Font.BOLD, 15));
+		lp.setBounds(50,20, 250,20);
+		fPantry.add(lp);
 		//print all pantry items
 		ArrayList<String> items = new ArrayList<String>();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
@@ -89,7 +95,8 @@ public class MealMate extends JFrame implements ActionListener {
 				String line = inFile.nextLine();
 				JLabel l = new JLabel(line);
 				l.setBounds(50,yLoc, 250,20);
-		        labels.add(l);
+				l.setFont(new Font("Lato", Font.PLAIN, 13));
+		        	labels.add(l);
 				//System.out.println(line);
 				items.add(line);
 				yLoc = yLoc + 20;
@@ -105,6 +112,7 @@ public class MealMate extends JFrame implements ActionListener {
         
         yLoc = yLoc + 30;
         JLabel li = new JLabel("Type what words?");
+        li.setFont(new Font("Lato", Font.BOLD, 15));
         li.setBounds(50, yLoc, 250, 20);
         fPantry.add(li);
         
@@ -116,7 +124,11 @@ public class MealMate extends JFrame implements ActionListener {
         
         //buttons
         JButton bAdd = new JButton("Add To Pantry");
+        bAdd.setBackground(Color.decode("#CBF2CF"));
+        bAdd.setFont(new Font("Lato", Font.BOLD, 15));
         JButton bRemove = new JButton("Remove From Pantry");
+        bRemove.setBackground(Color.decode("#CBF2CF"));
+        bRemove.setFont(new Font("Lato", Font.BOLD, 15));
         yLoc = yLoc+20;
         bAdd.setBounds(50, yLoc, 200, 20);
         bRemove.setBounds(300, yLoc, 200, 20);
@@ -132,8 +144,11 @@ public class MealMate extends JFrame implements ActionListener {
         yLoc = yLoc + 50;
         JLabel lba = new JLabel("Or add via file upload.");
         lba.setBounds(50, yLoc, 250, 20);
+		lba.setFont(new Font("Lato", Font.BOLD, 15));
         fPantry.add(lba);
         JButton bBulk = new JButton("Choose File");
+        bBulk.setBackground(Color.decode("#CBF2CF"));
+        bBulk.setFont(new Font("Lato", Font.BOLD, 15));
         bBulk.setBounds(50, yLoc+20, 200, 20);
         bBulk.setActionCommand("Choose File");
         bBulk.setEnabled(true);
@@ -295,6 +310,7 @@ public class MealMate extends JFrame implements ActionListener {
 		try {
 			if (gList == false) {
 				JLabel l = new JLabel("These are your available recipes.");
+				l.setFont(new Font("Lato", Font.BOLD, 15));
 				l.setBounds(50,20, 250,20);
 		        f.add(l);
 			}
@@ -328,7 +344,8 @@ public class MealMate extends JFrame implements ActionListener {
 					recipes.add(r);
 					JLabel li = new JLabel(r.getName());
 					li.setBounds(75,yLoc, 250,20);
-			        labels.add(li);
+					li.setFont(new Font("Lato", Font.PLAIN, 13));
+			        	labels.add(li);
 					yLoc = yLoc + 20;
 					//System.out.println(r.getName());//convert to JLabels
 				}
@@ -360,7 +377,8 @@ public class MealMate extends JFrame implements ActionListener {
 		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
 		try {
 			JLabel l = new JLabel("These are your available Grocery Lists.");
-			l.setBounds(50,20, 250,20);
+			l.setFont(new Font("Lato", Font.BOLD, 15));
+			l.setBounds(50,20, 500,20);
 	        fGL.add(l);
 			//add to lists to prepare create objects
 			File p = new File("MealMate/groceryList");
@@ -393,14 +411,16 @@ public class MealMate extends JFrame implements ActionListener {
 				//System.out.println(r.getName()); //convert to JLabels
 				JLabel li = new JLabel(r.getName());
 				li.setBounds(75,yLocTitle, 250,20);
-		        labelsTitle.add(li);
-		        yLocLabs = yLocTitle + 20;
+				li.setFont(new Font("Lato", Font.PLAIN, 13));
+		        	labelsTitle.add(li);
+		        	yLocLabs = yLocTitle + 20;
 				yLocTitle = yLocTitle + 100;
 				for (int k = 0; k < r.getIngredients().size(); k++) {
 					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
 					JLabel ll = new JLabel(r.getIngredients().get(k));
 					ll.setBounds(100,yLocLabs, 250,20);
-			        labelsIngredient.add(ll);
+					ll.setFont(new Font("Lato", Font.PLAIN, 13));
+			        	labelsIngredient.add(ll);
 					yLocLabs = yLocLabs + 20;
 				} 
 			}
@@ -415,7 +435,9 @@ public class MealMate extends JFrame implements ActionListener {
 			//make list
 			yLocLabs = yLocLabs+50;
 			JButton bGL = new JButton("Make Grocery List");
-			bGL.setBounds(50, yLocLabs, 200, 20);
+			bGL.setBackground(Color.decode("#CBF2CF"));
+        	bGL.setFont(new Font("Lato", Font.BOLD, 15));
+			bGL.setBounds(50, yLocLabs, 500, 20);
 			bGL.setActionCommand("Make Grocery List");
 	        bGL.setEnabled(true);
 	        bGL.addActionListener(this);
@@ -424,7 +446,8 @@ public class MealMate extends JFrame implements ActionListener {
 			//remove list
 			yLocLabs = yLocLabs+30;
 			JLabel lRemove = new JLabel("Type which list you want to delete.");
-			lRemove.setBounds(50, yLocLabs, 250, 20);
+			lRemove.setFont(new Font("Lato", Font.BOLD, 15)); //THIS
+			lRemove.setBounds(50, yLocLabs, 500, 20);
 			fGL.add(lRemove);
 			
 			yLocLabs = yLocLabs+20;
@@ -434,11 +457,14 @@ public class MealMate extends JFrame implements ActionListener {
 			
 			yLocLabs = yLocLabs+20;
 			JButton bNoGL = new JButton("Delete Grocery List");
+			bNoGL.setBackground(Color.decode("#CBF2CF"));
+        	bNoGL.setFont(new Font("Lato", Font.BOLD, 15));
 			bNoGL.setBounds(50, yLocLabs, 400, 20);
 			bNoGL.setActionCommand("Delete Grocery List");
 	        bNoGL.setEnabled(true);
 	        bNoGL.addActionListener(this);
 			fGL.add(bNoGL);
+
 		} catch (IOException e) {
 			System.out.println(e); // prints error
 		}

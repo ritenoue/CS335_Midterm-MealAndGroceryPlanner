@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
  
 /* 
@@ -23,7 +24,10 @@ public class MakeButton extends JPanel
                         implements ActionListener {
     protected JButton b1, b2, b3;
     
+    
+    
     public MakeButton() {
+    	
     	//ImageIcon leftButtonIcon = createImageIcon("images/right.gif");
         //ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
         //ImageIcon rightButtonIcon = createImageIcon("images/left.gif")
@@ -79,8 +83,10 @@ public class MakeButton extends JPanel
     
     public void actionPerformed(ActionEvent e) {
   ////****THS IS THE GOOD GOODS :))****///
+    	MealMate mealMate = new MealMate();
+
         if ("view pantry".equals(e.getActionCommand())) {  
-            MealMate.viewPantry(false);
+            mealMate.viewPantry(true);
         } 
         if ("view recipe".equals(e.getActionCommand())) {  
             MealMate.viewRecipe(false);
@@ -110,7 +116,8 @@ public class MakeButton extends JPanel
     	 
         //Create and set up the window.
         JFrame frame = new JFrame("MealMate");
-        frame.setBounds(1000,1000,1000,1000); 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setBounds(1000,1000,screenSize.width,screenSize.height);  
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         //how to close program when you click X on popup
