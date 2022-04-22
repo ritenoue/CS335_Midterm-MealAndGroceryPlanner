@@ -772,7 +772,7 @@ public class MealMate extends JFrame implements ActionListener {
 				System.out.println(e1); // prints error
 			}
 			MealMate.removeFromPantry(items, t.getText());
-			t.setText(" ");			
+			t.setText("");			
 		} if ("Make Grocery List".equals(e.getActionCommand())) {
 			MealMate.makeGroceryList();
 		} if ("Delete Grocery List".equals(e.getActionCommand())) {
