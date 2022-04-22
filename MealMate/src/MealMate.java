@@ -245,16 +245,41 @@ public class MealMate extends JFrame implements ActionListener {
 	
 	public static void addToPantry() {
 		try {
-			FileWriter p = new FileWriter("MealMate/pantry", true);
+			// Get current pantry items
+			String line = "";
+			FileReader readPantry = new FileReader ("pantry");
+			Scanner pantryScan = new Scanner (readPantry);
+			ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
+			while (pantryScan.hasNextLine()){
+				line = pantryScan.nextLine();
+				line = line.toLowerCase();
+				line = line.replaceAll("[\\d]", ""); // remove any numeric symbols
+				pantryItems.add(line);
+			}
+			pantryScan.close();
+
 			String item = t.getText();
-		//check to see if user wants to exit else write to file.
-		
-			p.write(item + "\r\n");
+			FileWriter p = new FileWriter("pantry", true);
+			boolean isThere = false;
+			String currentOGPantry = "";
+
+			// check for repeats and only add new pantry items
+			for(int z=0; z<pantryItems.size(); z++) {
+				currentOGPantry = pantryItems.get(z);
+				if(currentOGPantry.equals(item)){
+					isThere = true;
+					break;
+				}
+			}
+			if (isThere == false){
+				p.write(item + "\r\n");
+			}
 			p.close();
+
 			l.setText(t.getText());
 
 		// set the text of field to blank
-			t.setText(" ");
+			t.setText("");
 		} catch (IOException e1) {
 			System.out.println(e1); // prints error
 		}
