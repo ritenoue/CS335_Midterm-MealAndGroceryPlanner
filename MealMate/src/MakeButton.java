@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
  
 /* 
@@ -115,7 +116,8 @@ public class MakeButton extends JPanel
     	 
         //Create and set up the window.
         JFrame frame = new JFrame("MealMate");
-        frame.setBounds(1000,1000,1000,1000); 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setBounds(1000,1000,screenSize.width,screenSize.height);  
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         //how to close program when you click X on popup
