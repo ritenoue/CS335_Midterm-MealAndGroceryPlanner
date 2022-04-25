@@ -717,16 +717,22 @@ public class MealMate extends JFrame implements ActionListener {
 		
 		FileWriter p;
 		try {
-			//find and remove
-			p = new FileWriter("MealMate/groceryList", true);
-			//p = new FileWriter("groceryList", true);
+			boolean removed = false;
+			p = new FileWriter("groceryList", true);
 			for (int j = 0; j < gList.size(); j++) {
 				if (item.equals(gList.get(j).getName())) {
 					gList.remove(j);
+					removed = true;
 				}
 				else {
 					continue;
 				}
+			}
+			if (removed==false){
+				JFrame jFrame = new JFrame();
+				JOptionPane.showMessageDialog(jFrame, "Grocery list titled '"+item+"' was not found.");
+				// set the text of field to blank
+				tNoGL.setText("");
 			}
 			//write to file
 						for (int l = 0; l < gList.size(); l++) {
