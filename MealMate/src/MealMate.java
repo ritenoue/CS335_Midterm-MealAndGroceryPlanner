@@ -277,12 +277,12 @@ public class MealMate extends JFrame implements ActionListener {
 				JFrame jFrame = new JFrame();
         			JOptionPane.showMessageDialog(jFrame, "You already have that item in your pantry.");
 				// set the text of field to blank
+				l.setText(t.getText());
 				t.setText("");
 			}
 			p.close();
 			l.setText(t.getText());
-
-		// set the text of field to blank
+			// set the text of field to blank
 			t.setText("");
 		} catch (IOException e1) {
 			System.out.println(e1); // prints error
