@@ -405,7 +405,7 @@ public class MealMate extends JFrame implements ActionListener {
 				//makeGroceryList(recipes);
 			}
 			
-		// ***EXPERIMENTAL ADD RECIPE AREA ***
+		// ADDING RECIPE
 		yLoc = yLoc + 50;
 		JLabel l = new JLabel("Add title of recipe");
 		l.setFont(new Font("Lato", Font.BOLD, 15));
@@ -470,10 +470,34 @@ public class MealMate extends JFrame implements ActionListener {
 			j++;
 		}
 
+		ArrayList<String> newR = new ArrayList<String>();
 		if (repeat==false){
-			String[] ingredients = items.split("\n");
-			// TODO: access file
-			// TODO: add recipe to file
+			try{
+				String[] ingredients = items.split("\n");
+				newR.add(title);
+				String s = "";
+				int i=0;
+				while(i<ingredients.length){
+					if ((i+1) == ingredients.length){
+						s = s + ingredients[i].toLowerCase();
+						break;
+					}else{
+						s = s + ingredients[i].toLowerCase() + ",";
+					}
+					i++;
+				}
+				newR.add(s); //add new string of ingredients
+
+				FileWriter r = new FileWriter("recipes", true);
+				for (String line : newR){
+					r.write(line+ "\r\n");
+				}
+
+				r.close();
+				
+			}catch (IOException e) {
+				System.out.println(e); // prints error
+			}
 		}
 	}
 	
