@@ -514,11 +514,13 @@ public class MealMate extends JFrame implements ActionListener {
 		
 		JLabel l1 = new JLabel("Here is where you make your Grocery List.");
 		int yLoc = 20;
-		l1.setBounds(50,yLoc,250,20);
+		l1.setBounds(50,yLoc,400,20);
+		l1.setFont(new Font("Lato", Font.BOLD, 15));
 		fMakeGL.add(l1);
 		JLabel l2 = new JLabel("Enter a title for your Grocery List and then each recipe you want.");
-		yLoc = yLoc + 20;
-		l2.setBounds(50,yLoc,250,20);
+		yLoc = yLoc + 25;
+		l2.setBounds(50,yLoc,600,20);
+		l2.setFont(new Font("Lato", Font.BOLD, 15));
 		fMakeGL.add(l2);
 		
 		boolean gList = false;
@@ -527,15 +529,16 @@ public class MealMate extends JFrame implements ActionListener {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
 		try {
-			yLoc = yLoc + 20;
+			yLoc = yLoc + 35;
 			if (gList == false) {
 				JLabel l = new JLabel("These are your available recipes.");
-				l.setBounds(50,yLoc, 250,20);
+				l.setBounds(50,yLoc, 400,20);
+				l.setFont(new Font("Lato", Font.BOLD, 15));
 		        fMakeGL.add(l);
 			}
 			//add to lists to prepare create objects
-			File p = new File("MealMate/recipes");
-			//File p = new File("recipes");
+			//File p = new File("MealMate/recipes");
+			File p = new File("recipes");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -562,6 +565,7 @@ public class MealMate extends JFrame implements ActionListener {
 					Recipe r = new Recipe(names.get(j), items.get(j));
 					recipes.add(r);
 					JLabel li = new JLabel(r.getName());
+					li.setFont(new Font("Lato", Font.PLAIN, 13));
 					li.setBounds(75,yLoc, 250,20);
 			        labels.add(li);
 					yLoc = yLoc + 20;
@@ -609,7 +613,7 @@ public class MealMate extends JFrame implements ActionListener {
 		fMakeGL.setBounds(1000,1000,1000,1000); 
 		fMakeGL.getContentPane().setLayout(null);
 		fMakeGL.setLocationRelativeTo(null);
-        fMakeGL.setVisible(true);
+        	fMakeGL.setVisible(true);
 		
 		//get recipes the user  wants on their grocery list.
 		//convert to text area
@@ -631,8 +635,8 @@ public class MealMate extends JFrame implements ActionListener {
 		//get pantry and add to ArrayList
 		ArrayList<String> pantry = new ArrayList<String>();
 		try {
-			File p = new File("MealMate/pantry");
-			//File p = new File("pantry");
+			//File p = new File("MealMate/pantry");
+			File p = new File("pantry");
 			Scanner inFile = new Scanner(p);
 			while (inFile.hasNext()) {
 				String line = inFile.nextLine();
