@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,6 +19,8 @@ public class MealMate extends JFrame implements ActionListener {
 	static JTextField t;
 	static JTextField tNoGL;
 	static JLabel l;
+	static JTextField tName;
+	static JTextArea tRecipes;
 	
 	public static void main(String[] args) {
 		MealMate m = new MealMate();
@@ -54,7 +57,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			else if (response[i].equals("4")) {
 				//go to view then create
-				makeGroceryList();
+				m.makeGroceryList();
 			}
 			else if (response[i].equals("5")) {
 				//go to view
@@ -246,7 +249,8 @@ public class MealMate extends JFrame implements ActionListener {
 		try {
 			// Get current pantry items
 			String line = "";
-			FileReader readPantry = new FileReader ("pantry");
+			FileReader readPantry = new FileReader ("MealMate/pantry");
+			//FileReader readPantry = new FileReader ("pantry");
 			Scanner pantryScan = new Scanner (readPantry);
 			ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
 			while (pantryScan.hasNextLine()){
@@ -258,7 +262,8 @@ public class MealMate extends JFrame implements ActionListener {
 			pantryScan.close();
 
 			String item = t.getText();
-			FileWriter p = new FileWriter("pantry", true);
+			FileWriter p = new FileWriter("MealMate/pantry", true);
+			//FileWriter p = new FileWriter("pantry", true);
 			boolean isThere = false;
 			String currentOGPantry = "";
 
@@ -280,7 +285,10 @@ public class MealMate extends JFrame implements ActionListener {
 				t.setText("");
 			}
 			p.close();
-			// set the text of field to blank
+
+			//l.setText(t.getText());
+
+		// set the text of field to blank
 			t.setText("");
 		} catch (IOException e1) {
 			System.out.println(e1); // prints error
@@ -304,8 +312,8 @@ public class MealMate extends JFrame implements ActionListener {
 				FileWriter p;
 				try {
 					//find and remove. Using the ArrayList sent in from viewPantry()
-					boolean found = false;
-					p = new FileWriter("pantry", true);
+					p = new FileWriter("MealMate/pantry", true);
+					//p = new FileWriter("pantry", true);
 					for (int j = 0; j < pItems.size(); j++) {
 						if (item.equals(pItems.get(j))) {
 							found = true;
@@ -322,7 +330,7 @@ public class MealMate extends JFrame implements ActionListener {
 						t.setText("");
 					}
 					
-					//write to file
+			//write to file
 					for (int l = 0; l < pItems.size(); l++) {
 						p.write(pItems.get(l) + "\r\n");
 					}
@@ -405,15 +413,15 @@ public class MealMate extends JFrame implements ActionListener {
 	public void viewGroceryList(Boolean remove) {
 		JFrame fGL = new JFrame("View Grocery Lists");
         
-        	ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
-        	ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
+        ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
+        ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
         
 		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
 		try {
 			JLabel l = new JLabel("These are your available Grocery Lists.");
 			l.setFont(new Font("Lato", Font.BOLD, 15));
 			l.setBounds(50,20, 500,20);
-	        	fGL.add(l);
+	        fGL.add(l);
 			//add to lists to prepare create objects
 			File p = new File("MealMate/groceryList");
 			//File p = new File("groceryList");
@@ -448,6 +456,7 @@ public class MealMate extends JFrame implements ActionListener {
 				li.setFont(new Font("Lato", Font.PLAIN, 13));
 		        	labelsTitle.add(li);
 		        	yLocLabs = yLocTitle + 20;
+				yLocTitle = yLocTitle + 100;
 				for (int k = 0; k < r.getIngredients().size(); k++) {
 					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
 					JLabel ll = new JLabel(r.getIngredients().get(k));
@@ -509,7 +518,7 @@ public class MealMate extends JFrame implements ActionListener {
         fGL.setVisible(true);
 	}
 
-	public static void makeGroceryList() {
+	public void makeGroceryList() {
 		JFrame fMakeGL = new JFrame("Make Grocery List");
 		
 		JLabel l1 = new JLabel("Here is where you make your Grocery List.");
@@ -537,8 +546,8 @@ public class MealMate extends JFrame implements ActionListener {
 		        fMakeGL.add(l);
 			}
 			//add to lists to prepare create objects
-			//File p = new File("MealMate/recipes");
-			File p = new File("recipes");
+			File p = new File("MealMate/recipes");
+			//File p = new File("recipes");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -583,7 +592,7 @@ public class MealMate extends JFrame implements ActionListener {
 				//makeGroceryList(recipes);
 			}
 			//Title
-			JTextField tName = new JTextField(100);
+			tName = new JTextField(100);
 			yLoc = yLoc+20;
 			tName.setBounds(50, yLoc, 400, 20);
 			fMakeGL.add(tName);
@@ -592,7 +601,7 @@ public class MealMate extends JFrame implements ActionListener {
 			lName.setBounds(50,yLoc,250,20);
 			fMakeGL.add(lName);
 			
-			JTextArea tRecipes = new JTextArea();
+			tRecipes = new JTextArea();
 			yLoc = yLoc+30;
 			tRecipes.setBounds(50,yLoc,400,150);
 			fMakeGL.add(tRecipes);
@@ -604,7 +613,11 @@ public class MealMate extends JFrame implements ActionListener {
 			
 			yLoc = yLoc+20;
 			JButton bList = new JButton("Add to Grocery List");
+			bList.setBackground(Color.decode("#CBF2CF"));
+        	bList.setFont(new Font("Lato", Font.BOLD, 15));
 			bList.setBounds(50, yLoc, 400, 20);
+			bList.setActionCommand("Add to Grocery List");
+			bList.addActionListener(this);
 			fMakeGL.add(bList);
 			
 		} catch (IOException e) {
@@ -613,7 +626,7 @@ public class MealMate extends JFrame implements ActionListener {
 		fMakeGL.setBounds(1000,1000,1000,1000); 
 		fMakeGL.getContentPane().setLayout(null);
 		fMakeGL.setLocationRelativeTo(null);
-        	fMakeGL.setVisible(true);
+        fMakeGL.setVisible(true);
 		
 		//get recipes the user  wants on their grocery list.
 		//convert to text area
@@ -635,8 +648,8 @@ public class MealMate extends JFrame implements ActionListener {
 		//get pantry and add to ArrayList
 		ArrayList<String> pantry = new ArrayList<String>();
 		try {
-			//File p = new File("MealMate/pantry");
-			File p = new File("pantry");
+			File p = new File("MealMate/pantry");
+			//File p = new File("pantry");
 			Scanner inFile = new Scanner(p);
 			while (inFile.hasNext()) {
 				String line = inFile.nextLine();
@@ -692,8 +705,8 @@ public class MealMate extends JFrame implements ActionListener {
 		
 		//send to class constructor and print the groceryList 
 		GroceryList gList = new GroceryList(title, groceryItems);
-		System.out.println(gList.getName());
-		System.out.println(gList.getIngredients());
+		//System.out.println(gList.getName());
+		//System.out.println(gList.getIngredients());
 		
 		//save to text file
 		saveGroceryList(gList);
@@ -718,7 +731,9 @@ public class MealMate extends JFrame implements ActionListener {
 		FileWriter p;
 		try {
 			boolean removed = false;
-			p = new FileWriter("groceryList", true);
+			//find and remove
+			p = new FileWriter("MealMate/groceryList", true);
+			//p = new FileWriter("groceryList", true);
 			for (int j = 0; j < gList.size(); j++) {
 				if (item.equals(gList.get(j).getName())) {
 					gList.remove(j);
@@ -793,7 +808,56 @@ public class MealMate extends JFrame implements ActionListener {
 			MealMate.removeFromPantry(items, t.getText());
 			t.setText("");			
 		} if ("Make Grocery List".equals(e.getActionCommand())) {
-			MealMate.makeGroceryList();
+			MealMate mealMate = new MealMate();
+			mealMate.makeGroceryList();
+		} if ("Add to Grocery List".equals(e.getActionCommand())) {
+			
+			ArrayList<String> pantry = new ArrayList<String>();
+			try {
+				File p = new File("MealMate/pantry");
+				//File p = new File("pantry");
+				Scanner inFile = new Scanner(p);
+				while (inFile.hasNext()) {
+					String line = inFile.nextLine();
+					pantry.add(line);
+				}
+				inFile.close();
+			} catch (IOException e1) {
+				System.out.println(e1); // prints error
+			}
+			ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+			try {
+			File p = new File("MealMate/recipes");
+			//File p = new File("recipes");
+			Scanner inFile = new Scanner(p);
+			ArrayList<String> names = new ArrayList<String>();
+			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
+			int i = 0;
+			while (inFile.hasNext()) {
+				//even lines are added to names and odd to items
+				if (i % 2 == 0) {
+					String line = inFile.nextLine();
+					names.add(line);
+				}
+				else {
+					String line = inFile.nextLine();
+					ArrayList<String> ingredients = new ArrayList<String>(Arrays.asList(line.split(",")));
+					items.add(ingredients);
+				}
+				i++;
+			}
+			inFile.close();
+			for (int j = 0; j < names.size(); j++) {
+				Recipe r = new Recipe(names.get(j), items.get(j));
+				recipes.add(r);
+			}
+			} catch(IOException e1) {
+				System.out.println(e1); // prints error
+			}
+			
+			ArrayList<String> toCompare = new ArrayList<String>(Arrays.asList(tRecipes.getText().split("\n")));
+			
+			MealMate.compareRecipeGrocery(recipes, pantry, toCompare, tName.getText());
 		} if ("Delete Grocery List".equals(e.getActionCommand())) {
 			try {
 			ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
@@ -832,9 +896,3 @@ public class MealMate extends JFrame implements ActionListener {
     }
 	
 } 
-
-
-
-
-
-
