@@ -246,8 +246,8 @@ public class MealMate extends JFrame implements ActionListener {
 		try {
 			// Get current pantry items
 			String line = "";
-			FileReader readPantry = new FileReader ("pantry");
-			Scanner pantryScan = new Scanner (readPantry);
+			FileReader readPantry = new FileReader ("MealMate/pantry");
+			Scanner pantryScan = new Scanner(readPantry);
 			ArrayList<String> pantryItems = new ArrayList<String>(); // all og pantry items
 			while (pantryScan.hasNextLine()){
 				line = pantryScan.nextLine();
@@ -258,7 +258,7 @@ public class MealMate extends JFrame implements ActionListener {
 			pantryScan.close();
 
 			String item = t.getText();
-			FileWriter p = new FileWriter("pantry", true);
+			FileWriter p = new FileWriter("MealMate/pantry", true);
 			boolean isThere = false;
 			String currentOGPantry = "";
 
@@ -275,7 +275,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			p.close();
 
-			l.setText(t.getText());
+			//l.setText(t.getText());
 
 		// set the text of field to blank
 			t.setText("");
@@ -438,7 +438,7 @@ public class MealMate extends JFrame implements ActionListener {
 				li.setFont(new Font("Lato", Font.PLAIN, 13));
 		        	labelsTitle.add(li);
 		        	yLocLabs = yLocTitle + 20;
-				yLocTitle = yLocTitle + 100;
+				yLocTitle = yLocTitle + 100; // probably the spacing problem
 				for (int k = 0; k < r.getIngredients().size(); k++) {
 					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
 					JLabel ll = new JLabel(r.getIngredients().get(k));
@@ -583,7 +583,7 @@ public class MealMate extends JFrame implements ActionListener {
 			tRecipes.setBounds(50,yLoc,400,150);
 			fMakeGL.add(tRecipes);
 			
-			yLoc = yLoc+20;
+			yLoc = yLoc+150;
 			JLabel lRecipes = new JLabel("Type desired resipes here.");
 			lRecipes.setBounds(50,yLoc,250,20);
 			fMakeGL.add(lRecipes);
