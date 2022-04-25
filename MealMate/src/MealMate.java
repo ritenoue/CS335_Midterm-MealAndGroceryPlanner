@@ -950,6 +950,9 @@ public class MealMate extends JFrame implements ActionListener {
 			ArrayList<String> toCompare = new ArrayList<String>(Arrays.asList(tRecipes.getText().split("\n")));
 			
 			MealMate.compareRecipeGrocery(recipes, pantry, toCompare, tName.getText());
+			
+			tName.setText("");
+			tRecipes.setText("");
 		} if ("Delete Grocery List".equals(e.getActionCommand())) {
 			try {
 			ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
