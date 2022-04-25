@@ -304,18 +304,25 @@ public class MealMate extends JFrame implements ActionListener {
 				FileWriter p;
 				try {
 					//find and remove. Using the ArrayList sent in from viewPantry()
-					p = new FileWriter("MealMate/pantry", true);
-					//p = new FileWriter("pantry", true);
+					boolean found = false;
+					p = new FileWriter("pantry", true);
 					for (int j = 0; j < pItems.size(); j++) {
 						if (item.equals(pItems.get(j))) {
+							found = true;
 							pItems.remove(j);
 						}
 						else {
 							continue;
 						}
 					}
+					if (found==false){
+						JFrame jFrame = new JFrame();
+						JOptionPane.showMessageDialog(jFrame, item+" not found in pantry.");
+						// set the text of field to blank
+						t.setText("");
+					}
 					
-			//write to file
+					//write to file
 					for (int l = 0; l < pItems.size(); l++) {
 						p.write(pItems.get(l) + "\r\n");
 					}
