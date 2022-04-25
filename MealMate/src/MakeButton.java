@@ -1,4 +1,4 @@
-package MealMate;
+//package MealMate;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -92,7 +92,7 @@ public class MakeButton extends JPanel
             MealMate.viewRecipe(false);
         } 
         if ("view grocery list".equals(e.getActionCommand())) {  
-            MealMate.viewGroceryList(false);
+            mealMate.viewGroceryList(false);
     	} else {
         	b2.setEnabled(true);
             b1.setEnabled(true);
@@ -116,8 +116,8 @@ public class MakeButton extends JPanel
     	 
         //Create and set up the window.
         JFrame frame = new JFrame("MealMate");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setBounds(1000,1000,screenSize.width,screenSize.height);  
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //frame.setBounds(1000,1000,screenSize.width,screenSize.height);  
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         //how to close program when you click X on popup

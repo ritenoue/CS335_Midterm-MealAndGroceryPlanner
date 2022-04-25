@@ -1,4 +1,4 @@
-package MealMate;
+//package MealMate;
 
 //Java program to create a blank text
 //field of definite number of columns.
