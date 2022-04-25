@@ -405,15 +405,15 @@ public class MealMate extends JFrame implements ActionListener {
 	public void viewGroceryList(Boolean remove) {
 		JFrame fGL = new JFrame("View Grocery Lists");
         
-        ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
-        ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
+        	ArrayList<JLabel> labelsTitle = new ArrayList<JLabel>();
+        	ArrayList<JLabel> labelsIngredient = new ArrayList<JLabel>();
         
 		ArrayList<GroceryList> gLists = new ArrayList<GroceryList>();
 		try {
 			JLabel l = new JLabel("These are your available Grocery Lists.");
 			l.setFont(new Font("Lato", Font.BOLD, 15));
 			l.setBounds(50,20, 500,20);
-	        fGL.add(l);
+	        	fGL.add(l);
 			//add to lists to prepare create objects
 			File p = new File("MealMate/groceryList");
 			//File p = new File("groceryList");
@@ -448,7 +448,6 @@ public class MealMate extends JFrame implements ActionListener {
 				li.setFont(new Font("Lato", Font.PLAIN, 13));
 		        	labelsTitle.add(li);
 		        	yLocLabs = yLocTitle + 20;
-				yLocTitle = yLocTitle + 100;
 				for (int k = 0; k < r.getIngredients().size(); k++) {
 					//System.out.println("  " + r.getIngredients().get(k)); //convert to JLabel
 					JLabel ll = new JLabel(r.getIngredients().get(k));
@@ -457,6 +456,7 @@ public class MealMate extends JFrame implements ActionListener {
 			        	labelsIngredient.add(ll);
 					yLocLabs = yLocLabs + 20;
 				} 
+				yLocTitle = yLocLabs + 25;
 			}
 			
 			for (int k = 0; k < labelsTitle.size(); k++) {
