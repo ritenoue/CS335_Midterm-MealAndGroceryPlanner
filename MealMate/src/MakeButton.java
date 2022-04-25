@@ -89,7 +89,7 @@ public class MakeButton extends JPanel
             mealMate.viewPantry(true);
         } 
         if ("view recipe".equals(e.getActionCommand())) {  
-            MealMate.viewRecipe(false);
+            mealMate.viewRecipe(false);
         } 
         if ("view grocery list".equals(e.getActionCommand())) {  
             mealMate.viewGroceryList(false);
