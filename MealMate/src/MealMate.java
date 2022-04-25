@@ -53,7 +53,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			else if (response[i].equals("3")) {
 				//go to view
-				viewRecipe(false);
+				m.viewRecipe(false);
 			}
 			else if (response[i].equals("4")) {
 				//go to view then create
