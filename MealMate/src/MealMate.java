@@ -343,7 +343,7 @@ public class MealMate extends JFrame implements ActionListener {
 			} //end else
 
 	
-	public static ArrayList<Recipe> viewRecipe(Boolean gList) {
+	public void viewRecipe(Boolean gList) {
 		JFrame f = new JFrame("View Recipes");
 		f.setBounds(1000,1000,1000,1000); 
 		f.getContentPane().setLayout(null);
@@ -359,8 +359,8 @@ public class MealMate extends JFrame implements ActionListener {
 		        f.add(l);
 			}
 			//add to lists to prepare create objects
-			File p = new File("MealMate/recipes");
-			//File p = new File("recipes");
+			//File p = new File("MealMate/recipes");
+			File p = new File("recipes");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -379,18 +379,17 @@ public class MealMate extends JFrame implements ActionListener {
 				i++;
 			}
 			inFile.close();
-			
+			int yLoc = 75;
 			//make objects. print if not making a grocery list and call makeGroceryList if true.
 			if (gList == false) {
-				int yLoc = 75;
 				for (int j = 0; j < names.size(); j++) {
 					Recipe r = new Recipe(names.get(j), items.get(j));
 					recipes.add(r);
 					JLabel li = new JLabel(r.getName());
 					li.setBounds(75,yLoc, 250,20);
 					li.setFont(new Font("Lato", Font.PLAIN, 13));
-			        	labels.add(li);
-					yLoc = yLoc + 20;
+			        labels.add(li);
+					yLoc = yLoc + 25;
 					//System.out.println(r.getName());//convert to JLabels
 				}
 				
@@ -405,10 +404,75 @@ public class MealMate extends JFrame implements ActionListener {
 				}
 				//makeGroceryList(recipes);
 			}
+			
+		// ***EXPERIMENTAL ADD RECIPE AREA ***
+		yLoc = yLoc + 50;
+		JLabel l = new JLabel("Add title of recipe");
+		l.setFont(new Font("Lato", Font.BOLD, 15));
+		l.setBounds(50,yLoc, 250,20);
+		f.add(l);
+
+		//text field for title
+		yLoc = yLoc + 20;
+        JTextField titleText = new JTextField(100);
+        titleText.setBounds(50, yLoc, 400, 20);
+        f.add(titleText);
+
+		yLoc = yLoc + 25;
+		JLabel iL = new JLabel("Add one item on each line");
+		iL.setFont(new Font("Lato", Font.BOLD, 15));
+		iL.setBounds(50,yLoc, 250,20);
+		f.add(iL);
+
+		//text area for items
+		JTextArea itemText = new JTextArea();
+		yLoc = yLoc+30;
+		itemText.setBounds(50,yLoc,400,150);
+		f.add(itemText);
+
+		//button will call addRecipe()
+		JButton bAddR = new JButton("Add Recipe");
+		bAddR.setBackground(Color.decode("#CBF2CF"));
+		bAddR.setFont(new Font("Lato", Font.BOLD, 15));
+		yLoc = yLoc+175;
+        bAddR.setBounds(50, yLoc, 200, 20);
+        bAddR.setEnabled(true);
+        f.add(bAddR);
+		System.out.println("BUTTON");
+
+		bAddR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				String titleT = titleText.getText();
+				String itemT = itemText.getText();
+				addRecipe(titleT, itemT, names);
+				titleText.setText("");
+				itemText.setText("");
+			}
+		});
+			
 		} catch (IOException e) {
 			System.out.println(e); // prints error
 		}
-		return(recipes); //I don't think this does anything
+	}
+
+	public void addRecipe(String title, String items, ArrayList<String> names){
+		//check to see if user-input recipe title is already in recipes
+		int j=0;
+		boolean repeat = false;
+		while(j<names.size()){
+			if(names.get(j).equals(title)){
+				JFrame jFrame = new JFrame();
+        		JOptionPane.showMessageDialog(jFrame, "You already have the '"+title+"' recipe.");
+				// set the text of field to blank
+				repeat = true;
+				break;
+			}
+			j++;
+		}
+
+		if (repeat==false){
+			// TODO: add recipe to file
+		}
 	}
 	
 	//added add/remove. without functionality
