@@ -471,6 +471,8 @@ public class MealMate extends JFrame implements ActionListener {
 		}
 
 		if (repeat==false){
+			String[] ingredients = items.split("\n");
+			// TODO: access file
 			// TODO: add recipe to file
 		}
 	}
