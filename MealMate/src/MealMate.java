@@ -275,7 +275,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			if (isThere == true){
 				JFrame jFrame = new JFrame();
-        			JOptionPane.showMessageDialog(jFrame, "You already have that item in your pantry.");
+        			JOptionPane.showMessageDialog(jFrame, "You already have '"+item+"' in your pantry.");
 				// set the text of field to blank
 				t.setText("");
 			}
@@ -317,7 +317,7 @@ public class MealMate extends JFrame implements ActionListener {
 					}
 					if (found==false){
 						JFrame jFrame = new JFrame();
-						JOptionPane.showMessageDialog(jFrame, item+" not found in pantry.");
+						JOptionPane.showMessageDialog(jFrame, "'"+item+"' not found in pantry.");
 						// set the text of field to blank
 						t.setText("");
 					}
