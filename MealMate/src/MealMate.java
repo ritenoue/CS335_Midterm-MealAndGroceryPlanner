@@ -372,7 +372,7 @@ public class MealMate extends JFrame implements ActionListener {
 			
 			//make objects. print if not making a grocery list and call makeGroceryList if true.
 			if (gList == false) {
-				int yLoc = 200;
+				int yLoc = 75;
 				for (int j = 0; j < names.size(); j++) {
 					Recipe r = new Recipe(names.get(j), items.get(j));
 					recipes.add(r);
