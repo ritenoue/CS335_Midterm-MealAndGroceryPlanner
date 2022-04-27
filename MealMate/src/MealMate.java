@@ -113,7 +113,7 @@ public class MealMate extends JFrame implements ActionListener {
         }
         
         yLoc = yLoc + 30;
-        JLabel li = new JLabel("Type what words?");
+        JLabel li = new JLabel("Add what items?");
         li.setFont(new Font("Lato", Font.BOLD, 15));
         li.setBounds(50, yLoc, 250, 20);
         fPantry.add(li);
