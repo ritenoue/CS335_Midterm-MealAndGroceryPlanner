@@ -684,29 +684,30 @@ public class MealMate extends JFrame implements ActionListener {
 				//makeGroceryList(recipes);
 			}
 			//Title
+			yLoc = yLoc+20;
+			JLabel lName = new JLabel("Type Grocery List name here.");
+			lName.setFont(new Font("Lato", Font.BOLD, 15));
+			lName.setBounds(50,yLoc,250,20);
+			fMakeGL.add(lName);
 			tName = new JTextField(100);
 			yLoc = yLoc+20;
 			tName.setBounds(50, yLoc, 400, 20);
 			fMakeGL.add(tName);
-			yLoc = yLoc+20;
-			JLabel lName = new JLabel("Type Grocery List name here.");
-			lName.setBounds(50,yLoc,250,20);
-			fMakeGL.add(lName);
 			
+			yLoc = yLoc+20;
+			JLabel lRecipes = new JLabel("Type desired recipes here.");
+			lRecipes.setFont(new Font("Lato", Font.BOLD, 15));
+			lRecipes.setBounds(50,yLoc,250,20);
+			fMakeGL.add(lRecipes);
 			tRecipes = new JTextArea();
 			yLoc = yLoc+30;
 			tRecipes.setBounds(50,yLoc,400,150);
 			fMakeGL.add(tRecipes);
 			
 			yLoc = yLoc+150;
-			JLabel lRecipes = new JLabel("Type desired resipes here.");
-			lRecipes.setBounds(50,yLoc,250,20);
-			fMakeGL.add(lRecipes);
-			
-			yLoc = yLoc+20;
 			JButton bList = new JButton("Add to Grocery List");
 			bList.setBackground(Color.decode("#CBF2CF"));
-        	bList.setFont(new Font("Lato", Font.BOLD, 15));
+        		bList.setFont(new Font("Lato", Font.BOLD, 15));
 			bList.setBounds(50, yLoc, 400, 20);
 			bList.setActionCommand("Add to Grocery List");
 			bList.addActionListener(this);
