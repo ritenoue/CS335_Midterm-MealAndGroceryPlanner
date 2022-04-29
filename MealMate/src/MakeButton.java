@@ -33,7 +33,7 @@ public class MakeButton extends JPanel
         //ImageIcon rightButtonIcon = createImageIcon("images/left.gif")
     	
         //b1 = new JButton("Disable middle button", leftButtonIcon);
-        b1 = new JButton("View Pantry");
+        b1 = new JButton("Pantry");
         b1.setVerticalTextPosition(AbstractButton.CENTER);
         b1.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
         b1.setMnemonic(KeyEvent.VK_D);
@@ -42,7 +42,7 @@ public class MakeButton extends JPanel
         b1.setFont(new Font("Lato", Font.BOLD, 40));
 
         //b2 = new JButton("Middle button", middleButtonIcon);
-        b2 = new JButton("View Recipes");
+        b2 = new JButton("Recipes");
 
         b2.setVerticalTextPosition(AbstractButton.BOTTOM);
         b2.setHorizontalTextPosition(AbstractButton.CENTER);
@@ -54,7 +54,7 @@ public class MakeButton extends JPanel
 
  
         //b3 = new JButton("Enable middle button", rightButtonIcon);
-        b3 = new JButton("View Grocery List");
+        b3 = new JButton("Grocery List");
 
         //Use the default text position of CENTER, TRAILING (RIGHT).
         b3.setMnemonic(KeyEvent.VK_E);
