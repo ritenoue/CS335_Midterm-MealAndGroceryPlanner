@@ -113,7 +113,7 @@ public class MealMate extends JFrame implements ActionListener {
         }
         
         yLoc = yLoc + 30;
-        JLabel li = new JLabel("Type what words?");
+        JLabel li = new JLabel("Add what items?");
         li.setFont(new Font("Lato", Font.BOLD, 15));
         li.setBounds(50, yLoc, 250, 20);
         fPantry.add(li);
@@ -277,6 +277,11 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			if (isThere == false){
 				p.write(item + "\r\n");
+				// Window to confirm
+				JFrame jFrame = new JFrame();
+        		J	OptionPane.showMessageDialog(jFrame, "Successfully added '"+item+"' to your pantry.");
+				// set the text of field to blank
+				t.setText("");
 			}
 			if (isThere == true){
 				JFrame jFrame = new JFrame();
@@ -319,6 +324,11 @@ public class MealMate extends JFrame implements ActionListener {
 						if (item.equals(pItems.get(j))) {
 							found = true;
 							pItems.remove(j);
+							// Window to confirm
+							JFrame jFrame = new JFrame();
+							JOptionPane.showMessageDialog(jFrame, "Successfully removed '"+item+"' from your pantry.");
+							// set the text of field to blank
+							t.setText("");
 						}
 						else {
 							continue;
@@ -462,7 +472,7 @@ public class MealMate extends JFrame implements ActionListener {
 		while(j<names.size()){
 			if(names.get(j).equals(title)){
 				JFrame jFrame = new JFrame();
-        		JOptionPane.showMessageDialog(jFrame, "You already have the '"+title+"' recipe.");
+        			JOptionPane.showMessageDialog(jFrame, "You already have the '"+title+"' recipe.");
 				// set the text of field to blank
 				repeat = true;
 				break;
@@ -492,6 +502,9 @@ public class MealMate extends JFrame implements ActionListener {
 				for (String line : newR){
 					r.write(line+ "\r\n");
 				}
+				// Window to confirm
+				JFrame jFrame = new JFrame();
+				JOptionPane.showMessageDialog(jFrame, "Successfully added '"+title+"' to your recipes.");
 
 				r.close();
 				
@@ -684,29 +697,30 @@ public class MealMate extends JFrame implements ActionListener {
 				//makeGroceryList(recipes);
 			}
 			//Title
+			yLoc = yLoc+20;
+			JLabel lName = new JLabel("Type Grocery List name here.");
+			lName.setFont(new Font("Lato", Font.BOLD, 15));
+			lName.setBounds(50,yLoc,250,20);
+			fMakeGL.add(lName);
 			tName = new JTextField(100);
 			yLoc = yLoc+20;
 			tName.setBounds(50, yLoc, 400, 20);
 			fMakeGL.add(tName);
-			yLoc = yLoc+20;
-			JLabel lName = new JLabel("Type Grocery List name here.");
-			lName.setBounds(50,yLoc,250,20);
-			fMakeGL.add(lName);
 			
+			yLoc = yLoc+20;
+			JLabel lRecipes = new JLabel("Type desired recipes here.");
+			lRecipes.setFont(new Font("Lato", Font.BOLD, 15));
+			lRecipes.setBounds(50,yLoc,250,20);
+			fMakeGL.add(lRecipes);
 			tRecipes = new JTextArea();
 			yLoc = yLoc+30;
 			tRecipes.setBounds(50,yLoc,400,150);
 			fMakeGL.add(tRecipes);
 			
 			yLoc = yLoc+150;
-			JLabel lRecipes = new JLabel("Type desired resipes here.");
-			lRecipes.setBounds(50,yLoc,250,20);
-			fMakeGL.add(lRecipes);
-			
-			yLoc = yLoc+20;
 			JButton bList = new JButton("Add to Grocery List");
 			bList.setBackground(Color.decode("#CBF2CF"));
-        	bList.setFont(new Font("Lato", Font.BOLD, 15));
+        		bList.setFont(new Font("Lato", Font.BOLD, 15));
 			bList.setBounds(50, yLoc, 400, 20);
 			bList.setActionCommand("Add to Grocery List");
 			bList.addActionListener(this);
@@ -802,6 +816,9 @@ public class MealMate extends JFrame implements ActionListener {
 		
 		//save to text file
 		saveGroceryList(gList);
+		// Window to confirm
+		JFrame jFrame = new JFrame();
+		JOptionPane.showMessageDialog(jFrame, "Successfully added '"+title+"' to grocery lists.");
 	}
 	
 	//send in gLists
@@ -838,6 +855,12 @@ public class MealMate extends JFrame implements ActionListener {
 			if (removed==false){
 				JFrame jFrame = new JFrame();
 				JOptionPane.showMessageDialog(jFrame, "Grocery list titled '"+item+"' was not found.");
+				// set the text of field to blank
+				tNoGL.setText("");
+			}else{
+				// Window to confirm
+				JFrame jFrame = new JFrame();
+				JOptionPane.showMessageDialog(jFrame, "Successfully removed '"+item+"' from grocery lists.");
 				// set the text of field to blank
 				tNoGL.setText("");
 			}
