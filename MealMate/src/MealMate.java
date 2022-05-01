@@ -360,7 +360,7 @@ public class MealMate extends JFrame implements ActionListener {
 			}
 			//add to lists to prepare create objects
 			//File p = new File("MealMate/recipes");
-			File p = new File("recipes");
+			File p = new File("MealMate/recipes");
 			Scanner inFile = new Scanner(p);
 			ArrayList<String> names = new ArrayList<String>();
 			ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -488,7 +488,7 @@ public class MealMate extends JFrame implements ActionListener {
 				}
 				newR.add(s); //add new string of ingredients
 
-				FileWriter r = new FileWriter("recipes", true);
+				FileWriter r = new FileWriter("MealMate/recipes", true);
 				for (String line : newR){
 					r.write(line+ "\r\n");
 				}
