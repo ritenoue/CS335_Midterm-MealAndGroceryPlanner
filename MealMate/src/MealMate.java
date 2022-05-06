@@ -272,7 +272,7 @@ public class MealMate extends JFrame implements ActionListener {
 				p.write(item + "\r\n");
 				// Window to confirm
 				JFrame jFrame = new JFrame();
-        		JOptionPane.showMessageDialog(jFrame, "Successfully added '"+item+"' to your pantry.");
+        			JOptionPane.showMessageDialog(jFrame, "Successfully added '"+item+"' to your pantry.");
 				// set the text of field to blank
 				t.setText("");
 			}
